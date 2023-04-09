@@ -9,12 +9,36 @@ class Manager extends CI_Controller
         $this->cek_login();
     }
 
+    // public function cek_login()
+    // {
+    //     $username = $this->session->userdata('username');
+    //     $hak_akses = $this->session->userdata('hak_akses');
+    //     if (empty($username) || $username == 'admin') {
+    //         redirect('admin/Login');
+    //     }
+    //     if (empty($hak_akses)) {
+    //         $this->session->sess_destroy();
+    //         redirect('Login');
+    //     }
+    // }
     public function cek_login()
     {
-        if (empty($this->session->userdata('username'))) {
-            redirect('admin/Login');
+        $username = $this->session->userdata('username');
+        $hak_akses = $this->session->userdata('hak_akses');
+
+        if (empty($username) || empty($hak_akses)) {
+            redirect('admin/login');
+        }
+
+        if ($hak_akses == 'pelanggan') {
+            redirect('Dashboard');
+        } elseif ($hak_akses == 'admin') {
+            redirect('admin/Adminpanel');
+        } elseif ($hak_akses == 'manager') {
+            // lanjutkan ke halaman admin panel
         }
     }
+
 
     public function index()
     {
@@ -96,12 +120,36 @@ class Manager extends CI_Controller
         $id = $_POST['id_sewa'];
         $status = $_POST['status'];
 
+        $idb = $_POST['id_bukti'];
+        $status_byr = $_POST['status_byr'];
+        $dibayar = $_POST['bayar'];
+        if ($status_byr == 'LUNAS') {
+            $bayar = $dibayar;
+        } elseif ($status_byr == 'DP') {
+            $bayar = '50000';
+        }
         $dataUpdate = array(
             'status' => $status
         );
+        $dataBukti = array(
+            'status' => $status_byr,
+            'bayar' => $bayar
+        );
         $this->Mcrud->update('t_sewa', $dataUpdate, 'id_sewa', $id);
+        $this->Mcrud->update('t_bukti', $dataBukti, 'id_bukti', $idb);
         $this->session->set_flashdata('flash', 'Diubah');
-        redirect('manager/manager/sewa');
+        redirect('admin/manager/sewa');
+    }
+    public function hapus_sewa()
+    {
+        $ids = $_POST['id_sewa'];
+        $idb = $_POST['id_bukti'];
+        $datasewa = array('id_sewa' => $ids);
+        $databukti = array('id_bukti' => $idb);
+        $this->Mcrud->hapus_data($datasewa, 't_sewa');
+        $this->Mcrud->hapus_data($databukti, 't_bukti');
+        $this->session->set_flashdata('flash', 'Dihapus');
+        redirect('admin/manager/sewa');
     }
 
     public function cetak_laporan()

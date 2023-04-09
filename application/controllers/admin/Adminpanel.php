@@ -9,23 +9,40 @@ class Adminpanel extends CI_Controller
         $this->cek_login();
     }
 
+    // public function cek_login()
+    // {
+    //     $username = $this->session->userdata('username');
+    //     $hak_akses = $this->session->userdata('hak_akses');
+    //     if (empty($username) || $username == 'manager') {
+    //         redirect('admin/Login');
+    //     }
+    //     if (empty($hak_akses)) {
+    //         redirect('Dashboard');
+    //     }
+    // }
     public function cek_login()
     {
-        if (empty($this->session->userdata('username'))) {
-            redirect('admin/Login');
+        $username = $this->session->userdata('username');
+        $hak_akses = $this->session->userdata('hak_akses');
+
+        if (empty($username) || empty($hak_akses)) {
+            redirect('admin/login');
+        }
+
+        if ($hak_akses == 'pelanggan') {
+            redirect('Dashboard');
+        } elseif ($hak_akses == 'manager') {
+            redirect('admin/Manager');
+        } elseif ($hak_akses == 'admin') {
+            // lanjutkan ke halaman admin panel
         }
     }
+
 
     public function index()
     {
         $data['content'] = "admin/admin";
         $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
-        //load view
-        $this->load->view('template_admin', $data);
-    }
-    public function manager()
-    {
-        $data['content'] = "manager";
         //load view
         $this->load->view('template_admin', $data);
     }
@@ -38,6 +55,7 @@ class Adminpanel extends CI_Controller
     }
     public function lapangan()
     {
+        $this->cek_login();
         $data['content'] = "admin/lapangan";
         $data['lapangan'] = $this->Mcrud->get_all_data('t_lapangan')->result();
         //load view
@@ -124,9 +142,11 @@ class Adminpanel extends CI_Controller
         $id_lapangan = $_POST['id_lapangan'];
 
         //setting file foto
-        $config['file_name'] = time() . $data_file['file_name'];
+        $data_file = $_FILES['foto'];
+        $config['file_name'] = time() . $data_file['name'];
         $config['upload_path'] = './upload_gambar/';
         $config['allowed_types'] = 'jpg|png|jpeg|PNG';
+        $config['max_size'] = 2048;
 
         $this->load->library('upload', $config);
 
@@ -152,9 +172,11 @@ class Adminpanel extends CI_Controller
         $fotolama = $_POST['fotolama'];
 
         //setting file foto
-        $config['file_name'] = time() . $data_file['file_name'];
+        $data_file = $_FILES['foto'];
+        $config['file_name'] = time() . $data_file['name'];
         $config['upload_path'] = './upload_gambar/';
         $config['allowed_types'] = 'jpg|png|jpeg|PNG';
+        $config['max_size'] = 2048;
 
         $this->load->library('upload', $config);
 
@@ -188,7 +210,17 @@ class Adminpanel extends CI_Controller
         $this->session->set_flashdata('flash', 'Dihapus');
         redirect('admin/Adminpanel/pelanggan');
     }
-
+    public function hapus_sewa()
+    {
+        $ids = $_POST['id_sewa'];
+        $idb = $_POST['id_bukti'];
+        $datasewa = array('id_sewa' => $ids);
+        $databukti = array('id_bukti' => $idb);
+        $this->Mcrud->hapus_data($datasewa, 't_sewa');
+        $this->Mcrud->hapus_data($databukti, 't_bukti');
+        $this->session->set_flashdata('flash', 'Dihapus');
+        redirect('admin/Adminpanel/sewa');
+    }
     public function edit_jadwal()
     {
         $id = $_POST['id_jam'];
@@ -247,65 +279,6 @@ class Adminpanel extends CI_Controller
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
         //load view
         $this->load->view('admin/cetak_laporan', $data);
-    }
-
-
-    public function export_excel()
-    {
-        // Load library PHPExcel
-        require_once APPPATH . 'third_party/PHPExcel.php';
-
-        $tgl_m = $_POST['tanggal_mulai'];
-        $tgl_a = $_POST['tanggal_akhir'];
-        $tgl_mulai = date('Y-m-d H:i:s', strtotime($tgl_m));
-        $tgl_akhir = date('Y-m-d 23:59:59', strtotime($tgl_a));
-        $data['tgl_mulai'] = $tgl_m;
-        $data['tgl_akhir'] = $tgl_a;
-
-        // memperbarui variabel $data['bukti'] dengan data yang sesuai dengan range tanggal yang diminta
-        $query = $this->db->select('*')->from('t_bukti')
-            ->where('tgl_bayar >=', $tgl_mulai)
-            ->where('tgl_bayar <=', $tgl_akhir)
-            ->order_by('tgl_bayar', 'asc')
-            ->get();
-        $data = $query->result();
-
-        // Buat objek PHPExcel
-        $objPHPExcel = new PHPExcel();
-
-        // Buat header pada file Excel
-        $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', 'No')
-            ->setCellValue('B1', 'ID Invoice')
-            ->setCellValue('C1', 'ID Boking')
-            ->setCellValue('D1', 'Nama Pelanggan')
-            ->setCellValue('E1', 'Tanggal Bayar')
-            ->setCellValue('F1', 'Total');
-
-        // Set kolom pada file Excel
-        $kolom = 2; // baris ke 2
-        $nomor = 1;
-        foreach ($data as $row) {
-            $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A' . $kolom, $nomor++)
-                ->setCellValue('B' . $kolom, $row->id_bukti)
-                ->setCellValue('C' . $kolom, $row->id_sewa)
-                ->setCellValue('D' . $kolom, $row->id_pelanggan)
-                ->setCellValue('E' . $kolom, date('d-m-Y', strtotime($row->tgl_bayar)))
-                ->setCellValue('F' . $kolom, $row->tot_biaya);
-
-            $kolom++;
-        }
-
-        // Set format file Excel
-        $filename = 'data_bukti.xls';
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $filename . '"');
-        header('Cache-Control: max-age=0');
-
-        // Buat file Excel dan download
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save('php://output');
     }
 
 

@@ -8,11 +8,35 @@ class Sewa extends CI_Controller
         $this->cek_login();
     }
 
+    // public function cek_login()
+    // {
+    //     $username = $this->session->userdata('username');
+    //     $nama_lengkap = $this->session->userdata('nama_lengkap');
+    //     if (empty($username)) {
+    //         $this->session->set_flashdata('flash', 'Harus Login Dahulu');
+    //         redirect('Dashboard');
+    //     }
+    //     if (empty($nama_lengkap)) {
+    //         $this->session->set_flashdata('flash', 'Harus Login Dahulu');
+    //         redirect('Dashboard');
+    //     }
+    // }
     public function cek_login()
     {
-        if (empty($this->session->userdata('username'))) {
+        $username = $this->session->userdata('username');
+        $hak_akses = $this->session->userdata('hak_akses');
+
+        if (empty($username) || empty($hak_akses)) {
             $this->session->set_flashdata('flash', 'Harus Login Dahulu');
             redirect('Dashboard');
+        }
+
+        if ($hak_akses == 'manager') {
+            redirect('admin/manager');
+        } elseif ($hak_akses == 'admin') {
+            redirect('admin/Adminpanel');
+        } elseif ($hak_akses == 'pelanggan') {
+            // lanjutkan ke halaman pelanggan
         }
     }
 
@@ -150,16 +174,18 @@ class Sewa extends CI_Controller
 
         //setting file foto
         $data_file = $_FILES['bukti'];
-        $config['file_name'] = time() . $data_file['file_name'];
+        $config['file_name'] = time() . $data_file['name'];
         $config['upload_path'] = './upload_bukti/';
         $config['allowed_types'] = 'jpg|png|jpeg|PNG';
+        $config['max_size'] = 2048;
 
         $this->load->library('upload', $config);
 
-        //foto
+        //upload foto
         $this->upload->do_upload('bukti');
         $data = $this->upload->data();
         $bukti = $data['file_name'];
+
 
         $dataInsertsewa = array(
             'id_sewa' => $id_sewa,
