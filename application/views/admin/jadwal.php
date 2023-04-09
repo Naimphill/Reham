@@ -214,7 +214,7 @@
         </div>
         <div class=" container">
             <table class="table">
-                <thead class="thead-light">
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Jam</th>

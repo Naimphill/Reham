@@ -124,15 +124,17 @@
 
                 </tbody>
             </table>
-            <a class="btn btn-primary float-right" href="<?php echo site_url('Sewa/cetak/' . $id_sewa) ?>"><i
-                    class="fa fa-print"></i> Cetak</a>
+            <a class="btn btn-primary float-right" href="<?php echo site_url('Sewa/cetak/' . $id_sewa) ?>"
+                target="_blank"><i class="fa fa-print"></i> Cetak</a>
         </div>
     </div>
     <!-- <button class="btn btn-primary float-right"><i class="fa fa-print"></i> Cetak</button> -->
 
     <p><b>*Note : Silahkan Cetak/Simpan Bukti Pembayaran !</b></p>
     <p><b>*Silahkan lakukan pelunasan di Reham Futsal secara langsung !</b></p>
-    <br><br>
+    <br>
+    <a class="btn btn-lg btn-primary" href="<?php echo site_url('Sewa/riwayat/') ?>">Kembali</a>
+    <br>
     <hr><br><br>
     <h5><b>Lampiran</b></h5>
     <p>Bukti DP</p><br>

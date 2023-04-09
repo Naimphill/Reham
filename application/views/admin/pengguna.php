@@ -12,8 +12,8 @@
                         <p style="color: #000;" class="mb-4"><b>Data Pengguna</b></p>
                     </div>
                     <div class="col">
-                        <a class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalTambah">Tambah
-                            +</a>
+                        <!-- <a class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalTambah">Tambah
+                            +</a> -->
                     </div>
                 </div>
             </div>
@@ -21,12 +21,11 @@
     </div>
     <div class=" container">
         <table class="table">
-            <thead class="thead-light">
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Username</th>
                     <th scope="col">Level</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,12 +47,6 @@
                             </td>
                             <td>
                                 <?php echo $val->hak_akses; ?>
-                            </td>
-                            <td><a class="btn btn-outline-dark" href="" data-toggle="modal"
-                                    data-target="#ModalEdit<?php echo '_' . $idp; ?>"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btn btn-outline-dark tombolhapus"
-                                    href="<?php echo site_url('admin/Adminpanel/hapus_pengguna/' . $idp) ?>"><i
-                                        class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                         <!-- Modal Edit -->

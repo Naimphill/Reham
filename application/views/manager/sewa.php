@@ -143,6 +143,12 @@
                             </td>
                             <td><a class="btn btn-outline-dark" href="" data-toggle="modal"
                                     data-target="#ModalEdit<?php echo '_' . $ids; ?>"><i class="bi bi-pencil-square"></i></a>
+                                <form method="POST" action="<?php echo site_url('admin/Manager/hapus_sewa/') ?>">
+                                    <input type="hidden" name="id_sewa" value="<?php echo $ids; ?>">
+                                    <input type="hidden" name="id_bukti" value="<?php echo $idb; ?>">
+                                    <button type="submit" class="btn btn-outline-dark tombolkirim"><i
+                                            class="bi bi-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                         <!-- Modal Detail -->

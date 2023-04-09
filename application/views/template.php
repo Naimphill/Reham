@@ -22,8 +22,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-
-
+    <!-- Datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="<?php echo base_url('assets/assets/css/fontawesome.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/assets/css/templatemo-seo-dream.css') ?>">
@@ -63,32 +63,35 @@ https://templatemo.com/tm-563-seo-dream
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="<?php echo site_url('Dashboard') ?>" class="logo">
-                            <h4><img src="<?php echo base_url('assets/assets/images/logo.png') ?>"" alt="">Reham Futsal</h4>
+                            <h4><img class="mt-1 mb-1" src="<?php echo base_url('assets/assets/images/logo.png') ?>"
+                                    alt="">
+                                Reham Futsal
+                            </h4>
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class=" nav">
-                                <li class="scroll-to-section"><a href="<?php echo site_url('Dashboard') ?>">Beranda</a>
-                                </li>
-                                <li class="scroll-to-section"><a href="<?php echo site_url('Sewa') ?>">Sewa</a>
-                                </li>
-                                <li class="scroll-to-section"><a href="#kontak">Kontak</a></li>
-                                </li>
-                                <?php if (!empty($this->session->userdata('id_pelanggan'))) { ?>
-                                    <li class="scroll-to-section"><a href="<?php echo site_url('Sewa/riwayat') ?>">Riwayat
-                                            Boking</a>
-                                    <li class="scroll-to-section btn btn-danger btn-sm"><a class="tombolhapus"
-                                            href="<?php echo site_url('login/logout'); ?>">Logout</a></li>
-                                <?php } else { ?>
-                                    <li class="scroll-to-section btn btn-outline-light btn-sm"><a
-                                            href="<?php echo site_url('login'); ?>">Masuk</a></li>
-                                <?php } ?>
-                                <li class="scroll-to-section"></li>
-                                </ul>
-                                <a class='menu-trigger'>
-                                    <span>Menu</span>
-                                </a>
-                                <!-- ***** Menu End ***** -->
+                            <li class="scroll-to-section"><a href="<?php echo site_url('Dashboard') ?>">Beranda</a>
+                            </li>
+                            <li class="scroll-to-section"><a href="<?php echo site_url('Sewa') ?>">Sewa</a>
+                            </li>
+                            <li class="scroll-to-section"><a href="#kontak">Kontak</a></li>
+                            </li>
+                            <?php if (!empty($this->session->userdata('id_pelanggan'))) { ?>
+                                <li class="scroll-to-section"><a href="<?php echo site_url('Sewa/riwayat') ?>">Riwayat
+                                        Boking</a>
+                                <li class="scroll-to-section btn btn-danger btn-sm"><a class="tombolhapus"
+                                        href="<?php echo site_url('login/logout'); ?>">Logout</a></li>
+                            <?php } else { ?>
+                                <li class="scroll-to-section btn btn-outline-light btn-sm"><a
+                                        href="<?php echo site_url('login'); ?>">Masuk</a></li>
+                            <?php } ?>
+                            <li class="scroll-to-section"></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
                     </nav>
                 </div>
             </div>
@@ -166,7 +169,14 @@ https://templatemo.com/tm-563-seo-dream
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- Sweet Alert Script -->
     <script src="<?php echo base_url('assets/allert/package/dist/sweetalert2.all.min.js'); ?>"></script>
-
+    <!-- Datatables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
     <script>
         const flashData = $('.flash-login').data('flashdata');
 

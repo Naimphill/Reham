@@ -2,15 +2,9 @@
 <div class="container">
     <div class="col-lg-12 align-self-center wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
         <div class="section-heading">
-            <div class="row">
-                <div class="col-md-5">
-                    <button class="btn btn-secondary" onclick="goBack()"> <i class="fa fa-arrow-left"></i>
-                        Kembali</button>
-                </div>
-                <div class="col">
-                    <h2>Sewa Lapangan</h2>
-                </div>
-            </div>
+            <center>
+                <h2>Sewa Lapangan</h2>
+            </center>
             <!-- <h2>Silahkan Pilih <em>Lapangan</em></h2> -->
         </div>
     </div>
@@ -62,12 +56,14 @@
                                 required>
                         </div>
                         <button type="submit" class="btn btn-lg btn-primary">Kirim</button>
+                        <a class="btn btn-lg btn-danger" href="<?php echo site_url('Sewa') ?>">Cancel</a>
                     </form>
                 </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body bg-success">
-                            <h4 style="color:#fff ;">Silahkan lakukan pembayaran DP untuk memboking lapangan</h4>
+                            <h4 style="color:#fff ;">Silahkan lakukan pembayaran DP (Wajib Rp. 50.000) untuk memboking
+                                lapangan</h4>
                         </div>
                     </div>
                     <br>

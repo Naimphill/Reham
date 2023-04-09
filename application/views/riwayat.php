@@ -16,7 +16,7 @@
                     <h2>Anda Belum Pernah Menyewa Lapangan</h2>
                 </center>
             <?php } else { ?>
-                <table class="table">
+                <table id="myTable" class="table">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">No</th>
@@ -28,10 +28,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($sewa as $key) {
+                        <?php $no = 1;
+                        foreach ($sewa as $key) {
                             $id_sewa = $key->id_sewa; ?>
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row">
+                                    <?php echo $no++; ?>
+                                </th>
                                 <td>
                                     <?php echo $key->id_sewa; ?>
                                 </td>

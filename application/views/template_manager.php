@@ -217,6 +217,24 @@ https://templatemo.com/tm-585-barber-shop
                         }
                     })
                 });
+                $('.tombolkirim').on('click', function (e) {
+                    e.preventDefault();
+                    const form = $(this).closest('form');
+
+                    Swal.fire({
+                        title: 'Kamu Yakin?',
+                        text: "Akan Menghapus ?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Hapus !',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // submit form jika tombol "OK" ditekan
+                        }
+                    })
+                });
             </script>
 </body>
 
