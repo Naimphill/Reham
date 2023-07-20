@@ -263,8 +263,10 @@ class Adminpanel extends CI_Controller
     {
         $tgl_m = $_POST['tanggal_mulai'];
         $tgl_a = $_POST['tanggal_akhir'];
+        $status = $_POST['status'];
         $tgl_mulai = date('Y-m-d H:i:s', strtotime($tgl_m));
         $tgl_akhir = date('Y-m-d 23:59:59', strtotime($tgl_a));
+        $data['status'] = $status;
         $data['tgl_mulai'] = $tgl_m;
         $data['tgl_akhir'] = $tgl_a;
         // memperbarui variabel $data['bukti'] dengan data yang sesuai dengan range tanggal yang diminta
@@ -279,6 +281,13 @@ class Adminpanel extends CI_Controller
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
         //load view
         $this->load->view('admin/cetak_laporan', $data);
+    }
+
+    public function cetak_pelanggan()
+    {
+        $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
+        //load view
+        $this->load->view('admin/cetak_pelanggan', $data);
     }
 
 

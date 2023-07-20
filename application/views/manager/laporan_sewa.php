@@ -14,7 +14,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <form class="form mt-5" method="POST"
-                                action="<?php echo site_url('admin/Manager/laporancari/') ?>">
+                                action="<?php echo site_url('admin/Adminpanel/laporancari/') ?>">
                                 <div class="row">
                                     <?php
                                     if (isset($tgl_mulai) && isset($tgl_akhir)) { ?>
@@ -147,22 +147,88 @@
             </tbody>
         </table>
         <?php if (isset($tgl_mulai) && isset($tgl_akhir)) { ?>
-            <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
-                target="_blank">
-                <div class="row">
-                    <div class="col-md-5">
-                        <input style="font-size: 12px;" type="hidden" class="form-control datepicker" name="tanggal_mulai"
-                            value="<?php echo $tgl_mulai; ?>">
-                    </div>
-                    <div class="col-md-5">
-                        <input style="font-size: 12px;" type="hidden" class="form-control datepicker" name="tanggal_akhir"
-                            value="<?php echo $tgl_akhir; ?>">
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-outline-dark">Cetak</button>
-                    </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-2">
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                        target="_blank">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_mulai" value="<?php echo $tgl_mulai; ?>">
+                            </div>
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_akhir" value="<?php echo $tgl_akhir; ?>">
+                            </div>
+                            <input type="hidden" name="status" value="Semua">
+                            <div class="col">
+                                <button type="submit" class="btn btn-outline-dark">Cetak (Semua)</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+                <div class="col-md-2">
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                        target="_blank">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_mulai" value="<?php echo $tgl_mulai; ?>">
+                            </div>
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_akhir" value="<?php echo $tgl_akhir; ?>">
+                            </div>
+                            <input type="hidden" name="status" value="Sudah Main">
+                            <div class="col">
+                                <button type="submit" class="btn btn-outline-dark">Cetak (sudah Main)</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                        target="_blank">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_mulai" value="<?php echo $tgl_mulai; ?>">
+                            </div>
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_akhir" value="<?php echo $tgl_akhir; ?>">
+                            </div>
+                            <input type="hidden" name="status" value="Belum Main">
+                            <div class="col">
+                                <button type="submit" class="btn btn-outline-dark">Cetak (Belum Main)</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                        target="_blank">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_mulai" value="<?php echo $tgl_mulai; ?>">
+                            </div>
+                            <div class="col-md-5">
+                                <input style="font-size: 12px;" type="hidden" class="form-control datepicker"
+                                    name="tanggal_akhir" value="<?php echo $tgl_akhir; ?>">
+                            </div>
+                            <input type="hidden" name="status" value="Tidak Main">
+                            <div class="col">
+                                <button type="submit" class="btn btn-outline-dark">Cetak (Tidak Main)</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
         <?php } ?>
     </div>
 </section>

@@ -67,15 +67,12 @@ class Manager extends CI_Controller
         //load view
         $this->load->view('template_manager', $data);
     }
-    public function jadwal()
+    public function pengguna()
     {
         // load view
-        $data['content'] = "manager/jadwal";
+        $data['content'] = "manager/pengguna";
         // load data
-        $data['lapangan'] = $this->Mcrud->get_all_data('t_lapangan')->result();
-        $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
-        $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
-        $data['jadwal'] = $this->Mcrud->get_all_data('t_jam')->result();
+        $data['pengguna'] = $this->Mcrud->get_all_data('t_pengguna')->result();
         $this->load->view('template_manager', $data);
     }
     public function laporancari()
@@ -156,8 +153,10 @@ class Manager extends CI_Controller
     {
         $tgl_m = $_POST['tanggal_mulai'];
         $tgl_a = $_POST['tanggal_akhir'];
+        $status = $_POST['status'];
         $tgl_mulai = date('Y-m-d H:i:s', strtotime($tgl_m));
         $tgl_akhir = date('Y-m-d 23:59:59', strtotime($tgl_a));
+        $data['status'] = $status;
         $data['tgl_mulai'] = $tgl_m;
         $data['tgl_akhir'] = $tgl_a;
         // memperbarui variabel $data['bukti'] dengan data yang sesuai dengan range tanggal yang diminta

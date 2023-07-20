@@ -89,38 +89,58 @@ https://templatemo.com/tm-585-barber-shop
                                 href="<?php echo site_url('admin/Adminpanel'); ?>">AdminPanel</a>
                         </li>
 
-                        <li class="nav-item mb-3">
-                            <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Adminpanel/pengguna'); ?>">Data Pengguna</a>
+                        <li class="nav-item">
+                            <a class="hover-nav mb-3" style="color:#fff;" data-toggle="collapse" href="#ui-basic"
+                                aria-expanded="false" aria-controls="ui-basic">
+                                <span>Kelola Data <i class="bi bi-chevron-down"></i></span>
+                            </a>
+                            <div class="collapse" id="ui-basic">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item mb-3">
+                                        <a class="hover-nav" style="color:#fff;"
+                                            href="<?php echo site_url('admin/Adminpanel/pelanggan'); ?>">Data
+                                            Pelanggan</a>
+                                    </li>
+                                    <li class="nav-item mb-3">
+                                        <a class="hover-nav" style="color:#fff;"
+                                            href="<?php echo site_url('admin/Adminpanel/lapangan'); ?>">Data
+                                            Lapangan</a>
+                                    </li>
+                                    <li class="nav-item mb-3">
+                                        <a class="hover-nav" style="color:#fff;"
+                                            href="<?php echo site_url('admin/Adminpanel/jadwal'); ?>">Data
+                                            Jadwal</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="hover-nav mb-3" style="color:#fff;" data-toggle="collapse" href="#data-pesanan"
+                                aria-expanded="false" aria-controls="ui-basic">
+                                <span>Kelola Data Pesanan<i class="bi bi-chevron-down"></i></span>
+                            </a>
+                            <div class="collapse" id="data-pesanan">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item mb-3">
+                                        <a class="hover-nav" style="color:#fff;"
+                                            href="<?php echo site_url('admin/Adminpanel/sewa'); ?>">Data
+                                            Sewa</a>
+                                    </li>
+
+                                    <li class="nav-item mb-3">
+                                        <a class="hover-nav" style="color:#fff;"
+                                            href="<?php echo site_url('admin/Adminpanel/laporan_sewa'); ?>">Laporan
+                                            Sewa</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
-                        <li class="nav-item mb-3">
+                        <!-- <li class="nav-item mb-3">
                             <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Adminpanel/lapangan'); ?>">Data
-                                Lapangan</a>
-                        </li>
-                        <li class="nav-item mb-3">
-                            <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Adminpanel/jadwal'); ?>">Data
-                                Jadwal</a>
-                        </li>
-                        <li class="nav-item mb-3">
-                            <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Adminpanel/pelanggan'); ?>">Data
-                                Pelanggan</a>
-                        </li>
+                                href="<?php //echo site_url('admin/Adminpanel/pengguna'); ?>">Data Pengguna</a>
+                        </li> -->
 
-                        <li class="nav-item mb-3">
-                            <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Adminpanel/sewa'); ?>">Data
-                                Sewa</a>
-                        </li>
-
-                        <li class="nav-item mb-3">
-                            <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Adminpanel/laporan_sewa'); ?>">Laporan
-                                Sewa</a>
-                        </li>
                     </ul>
                 </div>
             </nav>

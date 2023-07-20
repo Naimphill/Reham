@@ -53,5 +53,12 @@
                     <?php }endif; ?>
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col">
+                <a class="btn btn-outline-dark"
+                    href="<?php echo site_url('admin/Adminpanel/cetak_pelanggan') ?>">Cetak</a>
+            </div>
+        </div>
     </div>
 </section>

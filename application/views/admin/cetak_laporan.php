@@ -21,6 +21,8 @@
             <h2>Laporan Sewa</h2>
             <p>
                 <?php echo 'Tanggal ' . $tgl_mulai . ' - ' . $tgl_akhir; ?>
+                <br>Status :
+                <?php echo $status; ?>
             </p>
         </center>
         <table style="font-size:14px;" class="table table-bordered">
@@ -36,11 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (count($bukti) == 0): ?>
-                    <tr>
-                        <td colspan="8" class="text-center">Maaf Data Kosong</td>
-                    </tr>
-                <?php else: ?>
+                <?php if ($status == "Semua") { ?>
                     <?php $no = 1;
                     $total = 0; // variabel untuk menyimpan total jumlah datanya
                     $bukti_bayar = 0;
@@ -77,7 +75,6 @@
                                 }
                                 ?>
                             </td>
-
                             <td>
                                 <?php echo date('d-m-Y', strtotime($buk->tgl_bayar)); ?>
                             </td>
@@ -108,7 +105,84 @@
                             echo 'Rp. -' . number_format($sub_total, 0, ',', '.'); ?>
                         </td>
                     </tr>
-                <?php endif; ?>
+
+
+                <?php } else { ?>
+                    <?php $no = 1;
+                    $total = 0; // variabel untuk menyimpan total jumlah datanya
+                    $bukti_bayar = 0;
+                    foreach ($bukti as $buk) {
+                        foreach ($sewa as $swa) {
+                            if ($buk->id_sewa == $swa->id_sewa) {
+                                if ($swa->status == $status) {
+                                    $id_bukti = $buk->id_bukti;
+                                    $dibayar = $buk->bayar;
+                                    $bukti_bayar += $dibayar;
+                                    $tot_b = $buk->tot_biaya;
+                                    $total += $tot_b; // menambahkan nilai $tot_b ke variabel $total
+                                    $tanggal = date('Y-m-d', strtotime($buk->tgl_bayar)); // mengambil data tanggal dengan format Y-m-d
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $no++; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $id_bukti; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $buk->id_sewa; ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            foreach ($sewa as $val) {
+                                                $ids = $val->id_sewa;
+                                                if ($buk->id_sewa == $ids) {
+                                                    foreach ($user as $key) {
+                                                        if ($key->id_pelanggan == $val->id_pelanggan) {
+                                                            $username = $key->username;
+                                                            echo $key->username;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php echo date('d-m-Y', strtotime($buk->tgl_bayar)); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo number_format($tot_b, 0, ',', '.'); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo number_format($buk->bayar, 0, ',', '.'); ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                        }
+
+                    } ?>
+                    <tr>
+                        <td colspan="5">
+                            <?php $no = $no - 1;
+                            echo 'Total ' . $no . ' Transaksi '; ?>
+                        </td>
+                        <td class="bg-success">
+                            <?php echo 'Rp. ' . number_format($total, 0, ',', '.'); ?>
+                        </td>
+                        <td class="bg-warning">
+                            <?php echo 'Rp. ' . number_format($bukti_bayar, 0, ',', '.'); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">Sisa</td>
+                        <td class="bg-danger">
+                            <?php $sub_total = $total - $bukti_bayar;
+                            echo 'Rp. -' . number_format($sub_total, 0, ',', '.'); ?>
+                        </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>

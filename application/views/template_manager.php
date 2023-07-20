@@ -91,15 +91,9 @@ https://templatemo.com/tm-585-barber-shop
 
                         <li class="nav-item mb-3">
                             <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Manager/jadwal'); ?>">Data
-                                Jadwal</a>
+                                href="<?php echo site_url('admin/Manager/pengguna'); ?>">Data
+                                Pengguna</a>
                         </li>
-                        <li class="nav-item mb-3">
-                            <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Manager/sewa'); ?>">Data
-                                Sewa</a>
-                        </li>
-
                         <li class="nav-item mb-3">
                             <a class="hover-nav" style="color:#fff;"
                                 href="<?php echo site_url('admin/Manager/laporan_sewa'); ?>">Laporan
