@@ -289,6 +289,17 @@ class Adminpanel extends CI_Controller
         //load view
         $this->load->view('admin/cetak_pelanggan', $data);
     }
+    public function cetak_sewa()
+    {
+        $status = $_POST['status'];
+        $data['status'] = $status;
+        $data['sewa'] = $this->Mcrud->get_all_data('t_sewa', NULL, NULL, 'tanggal DESC')->result();
+        $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
+        $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
+        $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
+        //load view
+        $this->load->view('admin/cetak_sewa', $data);
+    }
 
 
 }

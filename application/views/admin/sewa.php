@@ -257,5 +257,52 @@
                     <?php }endif; ?>
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
+                <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Adminpanel/cetak_sewa/') ?>"
+                    target="_blank">
+                    <div class="row">
+                        <input type="hidden" name="status" value="Semua">
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-dark">Cetak (Semua)</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Adminpanel/cetak_sewa/') ?>"
+                    target="_blank">
+                    <div class="row">
+                        <input type="hidden" name="status" value="Sudah Main">
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-dark">Cetak (sudah Main)</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Adminpanel/cetak_sewa/') ?>"
+                    target="_blank">
+                    <div class="row">
+                        <input type="hidden" name="status" value="Belum Main">
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-dark">Cetak (Belum Main)</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Adminpanel/cetak_sewa/') ?>"
+                    target="_blank">
+                    <div class="row">
+                        <input type="hidden" name="status" value="Tidak Main">
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-dark">Cetak (Tidak Main)</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </section>
