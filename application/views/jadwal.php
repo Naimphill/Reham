@@ -116,7 +116,8 @@
                                     <div class="col-md-9">
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta');
-                                        $tgl_min = date('Y-m-d');
+                                        $tgl_m = date('Y-m-d');
+                                        $tgl_min = date('Y-m-d', strtotime('+1 day', strtotime($tgl_m)));
                                         if (isset($tgl)) { ?>
                                             <input type="date" class="form-control datepicker" name="tanggal_input"
                                                 value="<?php echo $tgl; ?>" min="<?php echo $tgl_min; ?>">
