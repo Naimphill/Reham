@@ -8,13 +8,13 @@
             <div class="col-lg-12 col-12 mx-auto">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4 style="color: red;">Sewa</h4>
+                        <h4 style="color: red;">Owner</h4>
                         <p style="color: #000;" class="mb-4"><b>Laporan Sewa</b></p>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <form class="form mt-5" method="POST"
-                                action="<?php echo site_url('admin/Manager/laporancari/') ?>">
+                                action="<?php echo site_url('admin/Owner/laporancari/') ?>">
                                 <div class="row">
                                     <?php
                                     if (isset($tgl_mulai) && isset($tgl_akhir)) { ?>
@@ -150,7 +150,7 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-2">
-                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Owner/cetak_laporan/') ?>"
                         target="_blank">
                         <div class="row">
                             <div class="col-md-5">
@@ -169,7 +169,7 @@
                     </form>
                 </div>
                 <div class="col-md-2">
-                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Owner/cetak_laporan/') ?>"
                         target="_blank">
                         <div class="row">
                             <div class="col-md-5">
@@ -188,7 +188,7 @@
                     </form>
                 </div>
                 <div class="col-md-2">
-                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Owner/cetak_laporan/') ?>"
                         target="_blank">
                         <div class="row">
                             <div class="col-md-5">
@@ -207,7 +207,7 @@
                     </form>
                 </div>
                 <div class="col-md-2">
-                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Owner/cetak_laporan/') ?>"
                         target="_blank">
                         <div class="row">
                             <div class="col-md-5">

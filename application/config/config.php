@@ -37,6 +37,7 @@ $config['base_url'] = 'http://localhost:8080/reham/';
 | variable so that it is blank.
 |
 */
+date_default_timezone_set('Asia/Jakarta');
 $config['index_page'] = 'index.php';
 
 /*

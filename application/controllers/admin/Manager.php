@@ -50,7 +50,7 @@ class Manager extends CI_Controller
     public function sewa()
     {
         $data['content'] = "manager/sewa";
-        $data['sewa'] = $this->Mcrud->get_all_data('t_sewa', NULL, NULL, 'tanggal DESC')->result();
+        $data['sewa'] = $this->Mcrud->get_data_sewa_sorted_by_tanggal_desc();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
@@ -60,7 +60,7 @@ class Manager extends CI_Controller
     public function laporan_sewa()
     {
         $data['content'] = "manager/laporan_sewa";
-        $data['bukti'] = $this->Mcrud->get_all_data('t_bukti', NULL, NULL, 'tanggal DESC')->result();
+        $data['bukti'] = $this->Mcrud->get_data_bukti_sorted_by_tanggal_desc();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
@@ -74,6 +74,20 @@ class Manager extends CI_Controller
         // load data
         $data['pengguna'] = $this->Mcrud->get_all_data('t_pengguna')->result();
         $this->load->view('template_manager', $data);
+    }
+    public function edit_pengguna()
+    {
+        $id = $_POST['id_pengguna'];
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
+
+        $dataUpdate = array(
+            'username' => $username,
+            'password' => $password
+        );
+        $this->Mcrud->update('t_pengguna', $dataUpdate, 'id_pengguna', $id);
+        $this->session->set_flashdata('flash', 'Diubah');
+        redirect('admin/manager/pengguna');
     }
     public function laporancari()
     {
@@ -89,7 +103,7 @@ class Manager extends CI_Controller
         $query = $this->db->select('*')->from('t_bukti')
             ->where('tgl_bayar >=', $tgl_mulai)
             ->where('tgl_bayar <=', $tgl_akhir)
-            ->order_by('tgl_bayar', 'asc')
+            ->order_by('tgl_bayar', 'DESC')
             ->get();
         $data['bukti'] = $query->result();
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
@@ -172,7 +186,6 @@ class Manager extends CI_Controller
         //load view
         $this->load->view('manager/cetak_laporan', $data);
     }
-
 
     public function export_excel()
     {

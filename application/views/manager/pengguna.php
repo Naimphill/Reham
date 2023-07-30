@@ -26,6 +26,7 @@
                     <th scope="col">No</th>
                     <th scope="col">Username</th>
                     <th scope="col">Level</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,10 @@
                             <td>
                                 <?php echo $val->hak_akses; ?>
                             </td>
+                            <td>
+                                <a class="btn btn-outline-warning" href="" data-toggle="modal"
+                                    data-target="#ModalEdit<?php echo '_' . $idp; ?>">Edit</a>
+                            </td>
                         </tr>
                         <!-- Modal Edit -->
                         <div class="modal fade" id="ModalEdit<?php echo '_' . $idp; ?>" tabindex="-1"
@@ -64,20 +69,19 @@
                                     </div>
                                     <div class="modal-body">
                                         <form enctype="multipart/form-data" method="POST"
-                                            action="<?php echo site_url('admin/Adminpanel/edit_pengguna'); ?>">
+                                            action="<?php echo site_url('admin/Manager/edit_pengguna'); ?>">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Username</label>
                                                 <input type="text" class="form-control" name="username"
                                                     value="<?php echo $val->username; ?>">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlInput1">Hak Akses</label>
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                    <option value="<?php echo $val->hak_akses; ?>"><?php echo $val->hak_akses; ?></option>
-                                                    <option value="admin">Admin</option>
-                                                    <option value="manager">Manager</option>
-                                                </select>
+                                                <label for="exampleFormControlInput1">Password</label>
+                                                <input type="password" class="form-control" name="password">
                                             </div>
+                                            <input type="hidden" class="form-control" name="id_pengguna"
+                                                value="<?php echo $idp; ?>">
+                                            <span>*Setiap edit harus mengganti password</span><br>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
                                     </div>
@@ -106,7 +110,7 @@
             </div>
             <div class="modal-body">
                 <form enctype="multipart/form-data" method="POST"
-                    action="<?php echo site_url('admin/Adminpanel/save_pengguna'); ?>">
+                    action="<?php echo site_url('admin/Manager/save_pengguna'); ?>">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Username</label>
                         <input type="text" class="form-control" name="username">

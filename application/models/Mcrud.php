@@ -55,6 +55,15 @@ class Mcrud extends CI_Model
         $query = $this->db->get($table);
         return $query->row();
     }
-
+    public function get_data_bukti_sorted_by_tanggal_desc()
+    {
+        $this->db->order_by('tgl_bayar', 'DESC');
+        return $this->db->get('t_bukti')->result();
+    }
+    public function get_data_sewa_sorted_by_tanggal_desc()
+    {
+        $this->db->order_by('tgl_bayar', 'DESC');
+        return $this->db->get('t_bukti')->result();
+    }
 }
 ?>

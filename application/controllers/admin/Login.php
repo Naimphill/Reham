@@ -38,6 +38,8 @@ class Login extends CI_Controller
                 redirect('admin/Adminpanel');
             } elseif ($this->session->userdata('hak_akses') == 'manager') {
                 redirect('admin/Manager');
+            } elseif ($this->session->userdata('hak_akses') == 'owner') {
+                redirect('admin/Owner');
             }
         } else {
             $this->session->set_flashdata('salah', 'Username dan atau Password salah');

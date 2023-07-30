@@ -44,6 +44,7 @@
                                     <?php
                                     date_default_timezone_set('Asia/Jakarta');
                                     $hari = date('Y-m-d');
+                                    $waktu_sekarang = date('H:i');
 
                                     foreach ($jam as $val) {
                                         //inisialisasi variabel found
@@ -77,10 +78,17 @@
                                                             value="<?php echo $lapangan->id_lapangan; ?>">
                                                         <input type="hidden" name="jam" value="<?php echo $val->id_jam; ?>">
                                                         <input type="hidden" name="tgl" value="<?php echo $hari; ?>">
-                                                        <button type="submit"
-                                                            class="btn btn-primary btn-sm rounded-pill tombolkirim">
-                                                            <?php echo $val->jam; ?>
-                                                        </button>
+                                                        <?php if ($val->time < $waktu_sekarang) { ?>
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-sm rounded-pill tombolkirim" disabled>
+                                                                <?php echo $val->jam; ?>
+                                                            </button>
+                                                        <?php } else { ?>
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-sm rounded-pill tombolkirim">
+                                                                <?php echo $val->jam; ?>
+                                                            </button>
+                                                        <?php } ?>
                                                     </form>
 
                                                 </td>
@@ -97,6 +105,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
+
                     <div class="card">
                         <div class="card-header">
                             <form class="form" method="POST"
@@ -106,18 +115,19 @@
                                         value="<?php echo $lapangan->id_lapangan; ?>">
                                     <div class="col-md-9">
                                         <?php
+                                        date_default_timezone_set('Asia/Jakarta');
+                                        $tgl_min = date('Y-m-d');
                                         if (isset($tgl)) { ?>
                                             <input type="date" class="form-control datepicker" name="tanggal_input"
-                                                value="<?php echo $tgl; ?>">
+                                                value="<?php echo $tgl; ?>" min="<?php echo $tgl_min; ?>">
                                         <?php } else { ?>
                                             <input type="date" class="form-control datepicker" name="tanggal_input"
-                                                required>
+                                                min="<?php echo $tgl_min; ?>" required>
                                         <?php }
                                         ?>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn btn-primary">Cek
-                                            Jadwal</button>
+                                        <button type="submit" class="btn btn-primary">Cek Jadwal</button>
                                     </div>
                                     <div class="col"></div>
                                 </div><br>
@@ -127,8 +137,6 @@
                                             <?php
                                             if (isset($tgl)) {
                                                 echo date('d-m-Y', strtotime($tgl));
-                                            } else {
-
                                             }
                                             ?>
                                         </h4>
@@ -136,7 +144,6 @@
                                 </div>
                             </form>
                         </div>
-
 
                         <div class="card-body">
                             <?php
@@ -157,6 +164,8 @@
                                             }
 
                                             // tampilkan button
+                                            $tgl_now = date('Y-m-d');
+                                            $disabled = ($tgl < $tgl_now); // Cek apakah tanggal sudah lewat dari hari ini
                                             if ($found) {
                                                 ?>
                                                 <tr>
@@ -177,11 +186,10 @@
                                                             <input type="hidden" name="jam" value="<?php echo $val->id_jam; ?>">
                                                             <input type="hidden" name="tgl" value="<?php echo $tgl; ?>">
                                                             <button type="submit"
-                                                                class="btn btn-primary btn-sm rounded-pill tombolkirim">
+                                                                class="btn btn-primary btn-sm rounded-pill tombolkirim" <?php echo $disabled ? 'disabled' : ''; ?>>
                                                                 <?php echo $val->jam; ?>
                                                             </button>
                                                         </form>
-
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -190,13 +198,12 @@
                                         ?>
                                     </tbody>
                                 </table>
-
-                            <?php } else {
-
-                            }
-                            ?>
+                            <?php } ?>
                         </div>
                     </div>
+
+
+
                 </div>
             </div>
         </div>

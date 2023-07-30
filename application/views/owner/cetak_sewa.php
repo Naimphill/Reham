@@ -14,7 +14,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <form class="form mt-5" method="POST"
-                                action="<?php echo site_url('admin/Manager/laporancari/') ?>">
+                                action="<?php echo site_url('admin/Adminpanel/laporancari/') ?>">
                                 <div class="row">
                                     <?php
                                     if (isset($tgl_mulai) && isset($tgl_akhir)) { ?>
@@ -207,7 +207,7 @@
                     </form>
                 </div>
                 <div class="col-md-2">
-                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Manager/cetak_laporan/') ?>"
+                    <form class="form mt-5" method="POST" action="<?php echo site_url('admin/Owner/cetak_laporan/') ?>"
                         target="_blank">
                         <div class="row">
                             <div class="col-md-5">
