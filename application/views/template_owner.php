@@ -15,9 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-q2E+U6S9XBXQ3qy3lnYtu+yRRkzDRDtkRdqMw+m05nFl+VvHKTGg9PQq40q3YOsHm+tEJ6lDmiOEvZwKfHde7w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-q2E+U6S9XBXQ3qy3lnYtu+yRRkzDRDtkRdqMw+m05nFl+VvHKTGg9PQq40q3YOsHm+tEJ6lDmiOEvZwKfHde7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -32,13 +30,11 @@
     <!-- Datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <!-- datepicker -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-        $(function () {
+        $(function() {
             $("#datepicker").datepicker({
                 format: "yyyy-mm-dd",
                 autoclose: true,
@@ -67,27 +63,23 @@ https://templatemo.com/tm-585-barber-shop
     <div class="container-fluid">
         <div class="row">
 
-            <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <nav id="sidebarMenu" class="col-md-4 col-lg-3 d-md-block sidebar collapse p-0 bg-danger">
 
-                <div
-                    class="position-sticky sidebar-sticky d-flex flex-column justify-content-center align-items-center">
-                    <a class="navbar-brand" href="<?php echo site_url('admin/Owner') ?>">
-                        <img src="<?php echo base_url('assets/assets/images/logo.png') ?>" class="logo-image img-fluid"
-                            align="">
+                <div class="position-sticky sidebar-sticky d-flex flex-column justify-content-center align-items-center">
+                    <a class="navbar-brand" href="<?php echo site_url('admin/Adminpanel') ?>">
+                        <img src="<?php echo base_url('assets/assets/images/logo.png') ?>" class="logo-image img-fluid" align="">
                     </a>
 
                     <ul class="nav flex-column">
 
                         <li class="nav-item mb-3">
-                            <a class="hover-nav" style="color:#fff;"
-                                href="<?php echo site_url('admin/Owner'); ?>">Dashboard</a>
+                            <a class="hover-nav" style="color:#fff;" href="<?php echo site_url('admin/Adminpanel/sewa'); ?>">Laporan Penerimaan Kas</a>
                         </li>
+
                     </ul>
                 </div>
             </nav>
@@ -101,12 +93,9 @@ https://templatemo.com/tm-585-barber-shop
                         <div class="col-md-8"></div>
                         <div class="col">
                             <div class="text-center">
-                                <img style="width:50px ; height: 50px;"
-                                    src="<?php echo base_url('assets/assets/images/logo.png') ?>"
-                                    class="rounded float-right" alt="">
+                                <img style="width:50px ; height: 50px;" src="<?php echo base_url('assets/assets/images/logo.png') ?>" class="rounded float-right" alt="">
                                 <?php echo $this->session->userdata('username'); ?>
-                                <a class="btn btn-outline-secondary tombolkeluar"
-                                    href="<?php echo site_url('admin/login/logout') ?>">Logout</a>
+                                <a class="btn btn-outline-secondary tombolkeluar" href="<?php echo site_url('admin/login/logout') ?>">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -126,7 +115,7 @@ https://templatemo.com/tm-585-barber-shop
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $('#myTable').DataTable();
                 });
             </script>
@@ -163,7 +152,7 @@ https://templatemo.com/tm-585-barber-shop
                 }
 
                 // Tombol Keluar
-                $('.tombolkeluar').on('click', function (e) {
+                $('.tombolkeluar').on('click', function(e) {
                     e.preventDefault();
                     const href = $(this).attr('href');
 
@@ -182,7 +171,7 @@ https://templatemo.com/tm-585-barber-shop
                     })
                 });
                 // Tombol Hapus
-                $('.tombolhapus').on('click', function (e) {
+                $('.tombolhapus').on('click', function(e) {
                     e.preventDefault();
                     const href = $(this).attr('href');
 
@@ -200,7 +189,7 @@ https://templatemo.com/tm-585-barber-shop
                         }
                     })
                 });
-                $('.tombolkirim').on('click', function (e) {
+                $('.tombolkirim').on('click', function(e) {
                     e.preventDefault();
                     const form = $(this).closest('form');
 

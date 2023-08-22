@@ -75,11 +75,12 @@ https://templatemo.com/tm-563-seo-dream
                             </li>
                             <li class="scroll-to-section"><a href="<?php echo site_url('Sewa') ?>">Sewa</a>
                             </li>
+                            <li class="scroll-to-section"><a href="#portfolio">Fasilitas</a></li>
                             <li class="scroll-to-section"><a href="#kontak">Kontak</a></li>
                             </li>
                             <?php if (!empty($this->session->userdata('id_pelanggan'))) { ?>
                                 <li class="scroll-to-section"><a href="<?php echo site_url('Sewa/riwayat') ?>">Riwayat
-                                        Boking</a>
+                                        Booking</a>
                                 <li class="scroll-to-section btn btn-danger btn-sm"><a class="tombolhapus"
                                         href="<?php echo site_url('login/logout'); ?>">Logout</a></li>
                             <?php } else { ?>
@@ -148,9 +149,9 @@ https://templatemo.com/tm-563-seo-dream
 
             <div class="row">
                 <div class="col-lg-12">
-                    <p style="color:#fff ;">Copyright © 2023 Naimphill.
-                        <br>Web Designed by <a rel="nofollow" href="https://www.instagram.com/naimphill_19/"
-                            title="Instagram">Naimphill</a>
+                    <p style="color:#fff ;">Copyright © 2023 Dipsy.
+                        <br>Web Designed by <a rel="nofollow" href="https://www.instagram.com/gitabayum/"
+                            title="Instagram">gitabayum</a>
                     </p>
                 </div>
             </div>
@@ -214,7 +215,7 @@ https://templatemo.com/tm-563-seo-dream
 
             Swal.fire({
                 title: 'Kamu Yakin?',
-                text: "Akan Keluar ?",
+                text: "Akan Keluar?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -233,12 +234,12 @@ https://templatemo.com/tm-563-seo-dream
 
             Swal.fire({
                 title: 'Kamu Yakin?',
-                text: "Akan Mem-boking ?",
+                text: "Akan Membooking ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Boking !',
+                confirmButtonText: 'Booking !',
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit(); // submit form jika tombol "OK" ditekan

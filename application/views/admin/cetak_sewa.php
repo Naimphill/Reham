@@ -64,18 +64,24 @@
                             <td>
                                 <?php echo date_create($val->tanggal)->format('d/m/Y'); ?>
                             </td>
-                            <?php foreach ($jam as $tjm) {
-                                if ($tjm->id_jam == $val->id_jam) {
-                                    $nm_jam = $tjm->jam;
-                                    $nm_harga = $tjm->harga; ?>
-                                    <td>
-                                        <?php echo $tjm->jam; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo number_format($tjm->harga, 0, ',', '.'); ?>
-                                    </td>
-                                <?php }
-                            } ?>
+                            <td>
+                                <?php $tbayar = 0;
+                                foreach ($data_sewa as $dat) {
+                                    if ($ids == $dat->id_sewa) {
+                                        foreach ($jam as $tjm) {
+                                            if ($tjm->id_jam == $dat->id_jam) {
+                                                $nm_jam = $tjm->jam;
+                                                $nm_harga = $tjm->harga; ?>
+                                                <?php echo $tjm->jam . "<br>";
+                                                $tbayar = $tbayar + $tjm->harga;
+                                            }
+                                        }
+                                    }
+                                } ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($tbayar, 0, ',', '.'); ?>
+                            </td>
                             <?php foreach ($bukti as $buk) {
                                 if ($buk->id_sewa == $val->id_sewa) {
                                     $idb = $buk->id_bukti;
@@ -83,7 +89,7 @@
                                     $tot = $buk->tot_biaya;
                                     $tgl_byr = $buk->tgl_bayar;
                                     $status_byr = $buk->status;
-                                    $sisa = $buk->tot_biaya - $dibayar;
+                                    $sisa = $tbayar - $dibayar;
                                     $bukti_tf = $buk->bukti; ?>
                                     <td>
                                         <?php
@@ -130,18 +136,24 @@
                                 <td>
                                     <?php echo date_create($val->tanggal)->format('d/m/Y'); ?>
                                 </td>
-                                <?php foreach ($jam as $tjm) {
-                                    if ($tjm->id_jam == $val->id_jam) {
-                                        $nm_jam = $tjm->jam;
-                                        $nm_harga = $tjm->harga; ?>
-                                        <td>
-                                            <?php echo $tjm->jam; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($tjm->harga, 0, ',', '.'); ?>
-                                        </td>
-                                    <?php }
-                                } ?>
+                                <td>
+                                    <?php $tbayar = 0;
+                                    foreach ($data_sewa as $dat) {
+                                        if ($ids == $dat->id_sewa) {
+                                            foreach ($jam as $tjm) {
+                                                if ($tjm->id_jam == $dat->id_jam) {
+                                                    $nm_jam = $tjm->jam;
+                                                    $nm_harga = $tjm->harga; ?>
+                                                    <?php echo $tjm->jam . "<br>";
+                                                    $tbayar = $tbayar + $tjm->harga;
+                                                }
+                                            }
+                                        }
+                                    } ?>
+                                </td>
+                                <td>
+                                    <?php echo number_format($tbayar, 0, ',', '.'); ?>
+                                </td>
                                 <?php foreach ($bukti as $buk) {
                                     if ($buk->id_sewa == $val->id_sewa) {
                                         $idb = $buk->id_bukti;
@@ -149,7 +161,7 @@
                                         $tot = $buk->tot_biaya;
                                         $tgl_byr = $buk->tgl_bayar;
                                         $status_byr = $buk->status;
-                                        $sisa = $buk->tot_biaya - $dibayar;
+                                        $sisa = $tbayar - $dibayar;
                                         $bukti_tf = $buk->bukti; ?>
                                         <td>
                                             <?php

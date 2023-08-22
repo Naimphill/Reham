@@ -9,18 +9,7 @@ class Owner extends CI_Controller
         $this->cek_login();
     }
 
-    // public function cek_login()
-    // {
-    //     $username = $this->session->userdata('username');
-    //     $hak_akses = $this->session->userdata('hak_akses');
-    //     if (empty($username) || $username == 'admin') {
-    //         redirect('admin/Login');
-    //     }
-    //     if (empty($hak_akses)) {
-    //         $this->session->sess_destroy();
-    //         redirect('Login');
-    //     }
-    // }
+
     public function cek_login()
     {
         $username = $this->session->userdata('username');
@@ -32,10 +21,10 @@ class Owner extends CI_Controller
 
         if ($hak_akses == 'pelanggan') {
             redirect('Dashboard');
-        } elseif ($hak_akses == 'admin') {
-            redirect('admin/Adminpanel');
         } elseif ($hak_akses == 'manager') {
             redirect('admin/Manager');
+        } elseif ($hak_akses == 'admin') {
+            redirect('admin/owner');
         } elseif ($hak_akses == 'owner') {
             // lanjutkan ke halaman admin panel
         }
@@ -43,11 +32,11 @@ class Owner extends CI_Controller
 
     public function index()
     {
-        $data['content'] = "owner/index";
-        $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
+        $data['content'] = "owner/owner";
+        $data['sewa'] = $this->Mcrud->get_all_data('t_sewa', NULL, NULL, 'tanggal DESC')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
-        $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
         $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
+        $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
         //load view
         $this->load->view('template_owner', $data);
     }
@@ -73,7 +62,8 @@ class Owner extends CI_Controller
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
         //load view
-        $data['content'] = "owner/index";
+        $data['content'] = "owner/owner";
+        // var_dump($data);
         $this->load->view('template_owner', $data);
     }
     public function cetak_laporan()
@@ -99,5 +89,4 @@ class Owner extends CI_Controller
         //load view
         $this->load->view('owner/cetak_laporan', $data);
     }
-
 }

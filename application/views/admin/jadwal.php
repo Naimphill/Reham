@@ -83,11 +83,15 @@
                                                                 //inisialisasi variabel found
                                                                 $found = false;
                                                                 foreach ($sewa as $key) {
-                                                                    $tgal = $key->tanggal;
-                                                                    if ($tgal == $hari && $val->id_jam == $key->id_jam && $key->id_lapangan == $lap->id_lapangan) {
-                                                                        // Jika data jam ditemukan di dalam data sewa, maka set variabel $found menjadi true
-                                                                        $found = true;
-                                                                        break; // keluar dari loop $sewa karena sudah ditemukan
+                                                                    foreach ($data_sewa as $dat) {
+                                                                        if ($key->id_sewa == $dat->id_sewa) {
+                                                                            $tgal = $key->tanggal;
+                                                                            if ($tgal == $hari && $val->id_jam == $dat->id_jam && $key->id_lapangan == $lap->id_lapangan) {
+                                                                                // Jika data jam ditemukan di dalam , maka set variabel $found menjadi true
+                                                                                $found = true;
+                                                                                break; // keluar dari loop $sewa karena sudah ditemukan
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }
                                                                 // tampilkan button
@@ -148,11 +152,15 @@
                                                                     //inisialisasi variabel found
                                                                     $found = false;
                                                                     foreach ($sewa as $key) {
-                                                                        $tagl = $key->tanggal;
-                                                                        if ($tagl == $tgl && $val->id_jam == $key->id_jam && $key->id_lapangan == $lap->id_lapangan) {
-                                                                            // Jika data jam ditemukan di dalam data sewa, maka set variabel $found menjadi true
-                                                                            $found = true;
-                                                                            break; // keluar dari loop $sewa karena sudah ditemukan
+                                                                        foreach ($data_sewa as $dat) {
+                                                                            if ($key->id_sewa == $dat->id_sewa) {
+                                                                                $tagl = $key->tanggal;
+                                                                                if ($tagl == $tgl && $val->id_jam == $dat->id_jam && $key->id_lapangan == $lap->id_lapangan) {
+                                                                                    // Jika data jam ditemukan di dalam data sewa, maka set variabel $found menjadi true
+                                                                                    $found = true;
+                                                                                    break; // keluar dari loop $sewa karena sudah ditemukan
+                                                                                }
+                                                                            }
                                                                         }
                                                                     }
                                                                     // tampilkan button

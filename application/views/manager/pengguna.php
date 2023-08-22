@@ -1,4 +1,4 @@
-<?php if ($this->session->flashdata('flash')): ?>
+<?php if ($this->session->flashdata('flash')) : ?>
     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
     <?php unset($_SESSION['flash']); ?>
 <?php endif; ?>
@@ -12,8 +12,8 @@
                         <p style="color: #000;" class="mb-4"><b>Data Pengguna</b></p>
                     </div>
                     <div class="col">
-                        <!-- <a class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalTambah">Tambah
-                            +</a> -->
+                        <a class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalTambah">Tambah
+                            +</a>
                     </div>
                 </div>
             </div>
@@ -26,15 +26,15 @@
                     <th scope="col">No</th>
                     <th scope="col">Username</th>
                     <th scope="col">Level</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (count($pengguna) == 0): ?>
+                <?php if (count($pengguna) == 0) : ?>
                     <tr>
                         <td colspan="5" class="text-center">Maaf Data Kosong</td>
                     </tr>
-                <?php else: ?>
+                <?php else : ?>
                     <?php $no = 1;
                     foreach ($pengguna as $val) {
                         $idp = $val->id_pengguna ?>
@@ -50,13 +50,12 @@
                                 <?php echo $val->hak_akses; ?>
                             </td>
                             <td>
-                                <a class="btn btn-outline-warning" href="" data-toggle="modal"
-                                    data-target="#ModalEdit<?php echo '_' . $idp; ?>">Edit</a>
+                                <a class="btn btn-outline-dark" href="" data-toggle="modal" data-target="#ModalEdit<?php echo '_' . $idp; ?>"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-outline-dark tombolhapus" href="<?php echo site_url('admin/Manager/hapus_pengguna/' . $idp) ?>"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                         <!-- Modal Edit -->
-                        <div class="modal fade" id="ModalEdit<?php echo '_' . $idp; ?>" tabindex="-1"
-                            aria-labelledby="ModalJadwalLabel" aria-hidden="true">
+                        <div class="modal fade" id="ModalEdit<?php echo '_' . $idp; ?>" tabindex="-1" aria-labelledby="ModalJadwalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -68,20 +67,22 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form enctype="multipart/form-data" method="POST"
-                                            action="<?php echo site_url('admin/Manager/edit_pengguna'); ?>">
+                                        <form enctype="multipart/form-data" method="POST" action="<?php echo site_url('admin/Manager/edit_pengguna'); ?>">
+                                            <input type="hidden" name="id_pengguna" value="<?php echo $idp; ?>">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Username</label>
-                                                <input type="text" class="form-control" name="username"
-                                                    value="<?php echo $val->username; ?>">
+                                                <input type="text" class="form-control" name="username" value="<?php echo $val->username; ?>">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlInput1">Password</label>
-                                                <input type="password" class="form-control" name="password">
+                                                <label for="exampleFormControlInput1">Hak Akses</label>
+                                                <select class="form-control" id="exampleFormControlSelect1" name="hak_akses">
+                                                    <option value="<?php echo $val->hak_akses; ?>"><?php echo $val->hak_akses; ?></option>
+                                                    <option value="admin">Admin</option>
+                                                    <option value="manager">Manager</option>
+                                                    <option value="owner">Owner</option>
+                                                </select>
                                             </div>
-                                            <input type="hidden" class="form-control" name="id_pengguna"
-                                                value="<?php echo $idp; ?>">
-                                            <span>*Setiap edit harus mengganti password</span><br>
+
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
                                     </div>
@@ -92,7 +93,8 @@
                                 </div>
                             </div>
                         </div>
-                    <?php }endif; ?>
+                <?php }
+                endif; ?>
             </tbody>
         </table>
     </div>
@@ -109,8 +111,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form enctype="multipart/form-data" method="POST"
-                    action="<?php echo site_url('admin/Manager/save_pengguna'); ?>">
+                <form enctype="multipart/form-data" method="POST" action="<?php echo site_url('admin/Manager/save_pengguna'); ?>">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Username</label>
                         <input type="text" class="form-control" name="username">
@@ -121,10 +122,11 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Hak Akses</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="exampleFormControlSelect1" name="hak_akses">
                             <option value="">--PILIH--</option>
                             <option value="admin">Admin</option>
                             <option value="manager">Manager</option>
+                            <option value="owner">Owner</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

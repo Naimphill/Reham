@@ -8,8 +8,8 @@
             <div class="col-lg-12 col-12 mx-auto">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4 style="color: red;">Sewa</h4>
-                        <p style="color: #000;" class="mb-4"><b>Laporan Sewa</b></p>
+                        <h4 style="color: red;">Laporan</h4>
+                        <p style="color: #000;" class="mb-4"><b>Laporan Penerimaan Kas</b></p>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
@@ -63,7 +63,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">ID Invoice</th>
-                    <th scope="col">ID Boking</th>
+                    <th scope="col">ID Booking</th>
                     <th scope="col">Nama Pelanggan</th>
                     <th scope="col">Tanggal Bayar</th>
                     <th scope="col">Total</th>
@@ -182,7 +182,7 @@
                             </div>
                             <input type="hidden" name="status" value="Sudah Main">
                             <div class="col">
-                                <button type="submit" class="btn btn-outline-dark">Cetak (sudah Main)</button>
+                                <button type="submit" class="btn btn-outline-dark">Cetak (Sudah Main)</button>
                             </div>
                         </div>
                     </form>

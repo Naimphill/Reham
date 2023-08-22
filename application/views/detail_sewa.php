@@ -14,6 +14,7 @@
                             $tgl = $buk->tgl_bayar;
                             $id_bukti = $buk->id_bukti;
                             $bukti_tf = $buk->bukti;
+                            $tbayar = $buk->tot_biaya;
                         }
                     }
                 } ?>
@@ -48,7 +49,7 @@
                             <?php echo $id_bukti; ?>
                         </b></h5>
                     <center>
-                        <h2>Bukti Pembayaran</h2>
+                        <h2>Bukti Pemesanan</h2>
                     </center>
                 </div>
             </div>
@@ -87,25 +88,38 @@
                             <td>
                                 <?php echo $key->tanggal; ?>
                             </td>
-                            <?php foreach ($jam as $val) {
-                                if ($val->id_jam == $key->id_jam) {
-                                    $tot = $val->harga;
-                                    $jml = $tot - '50000'; ?>
-                                    <td>
-                                        <?php echo $val->jam; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo "Rp. " . number_format($tot, 0, ',', '.'); ?>
-                                    </td>
-                                <?php }
-                            } ?>
+                            <td>
+                                <?php foreach ($data_sewa as $dat) {
+                                    if ($dat->id_sewa == $id_sewa) {
+                                        foreach ($jam as $val) {
+                                            if ($val->id_jam == $dat->id_jam) {
+                                                echo $val->jam . "<br>";
+                                            }
+                                        }
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php foreach ($data_sewa as $dat) {
+                                    if ($dat->id_sewa == $id_sewa) {
+                                        foreach ($jam as $val) {
+                                            if ($val->id_jam == $dat->id_jam) {
+                                                echo "Rp. " . number_format($val->harga, 0, ',', '.') . '<br>';
+                                            }
+                                        }
+                                    }
+                                }
+                                ?>
+                            </td>
 
                         </tr>
                         <tr>
                             <td colspan="5"></td>
                             <td>Sub Total</td>
                             <td>
-                                <?php echo "Rp. " . number_format($tot, 0, ',', '.'); ?>
+                                <?php $jml = $tbayar - '50000';
+                                echo "Rp. " . number_format($tbayar, 0, ',', '.'); ?>
                             </td>
                         </tr>
                         <tr>
@@ -130,7 +144,7 @@
     </div>
     <!-- <button class="btn btn-primary float-right"><i class="fa fa-print"></i> Cetak</button> -->
 
-    <p><b>*Note : Silahkan Cetak/Simpan Bukti Pembayaran !</b></p>
+    <p><b>*Note : Silahkan Cetak/Simpan Bukti Pemesanan dan WAJIB DIBAWA !</b></p>
     <p><b>*Silahkan lakukan pelunasan di Reham Futsal secara langsung !</b></p>
     <br>
     <a class="btn btn-lg btn-primary" href="<?php echo site_url('Sewa/riwayat/') ?>">Kembali</a>

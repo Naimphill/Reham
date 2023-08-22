@@ -23,7 +23,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">ID Boking</th>
+                    <th scope="col">ID Booking</th>
                     <th scope="col">Username</th>
                     <th scope="col">Lapangan</th>
                     <th scope="col">Tanggal</th>

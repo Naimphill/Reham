@@ -14,11 +14,16 @@
                     <?php echo $lapangan->nm_lapangan; ?>
                 </h2>
             </div>
+
         </div>
         <!-- <h2>Silahkan Pilih <em>Lapangan</em></h2> -->
     </div>
 </div>
-
+<?php if ($this->session->flashdata('peringatan')): ?>
+    <div class="alert alert-danger container" data-flashdata="<?= $this->session->flashdata('peringatan'); ?>">
+        <?= $_SESSION['peringatan']; ?>
+    </div>
+<?php endif; ?>
 <!-- <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s"> -->
 <div class="container">
 
@@ -34,78 +39,51 @@
                                 date_default_timezone_set('Asia/Jakarta');
                                 $hari_ini = date('d-m-Y');
                                 echo 'Hari Ini <br>' . $hari_ini;
+                                $hari = date('Y-m-d');
+                                $time = date('H.i');
                                 ?>
                             </h4>
                         </div>
                         <div class="card-body">
-                            <!-- <table class="table"> -->
-                            <table class="table" id="hidden-hari" style="display: none;">
-                                <tbody>
+                            <form method="POST" action="<?php echo site_url('Sewa/coba_sewa') ?>" id="hidden-hari"
+                                style="display: none;">
+                                <center>
+                                    <input type="hidden" name="lapangan" value="<?php echo $lapangan->id_lapangan; ?>">
+                                    <input type="hidden" name="tgl" value="<?php echo $hari; ?>">
                                     <?php
                                     date_default_timezone_set('Asia/Jakarta');
                                     $hari = date('Y-m-d');
-                                    $waktu_sekarang = date('H:i');
-
+                                    $time = date('H.i');
                                     foreach ($jam as $val) {
-                                        //inisialisasi variabel found
+                                        $part = explode("-", $val->jam);
                                         $found = false;
                                         foreach ($sewa as $key) {
-                                            $tgal = $key->tanggal;
-                                            if ($tgal == $hari && $val->id_jam == $key->id_jam) {
-                                                // Jika data jam ditemukan di dalam data sewa, maka set variabel $found menjadi true
-                                                $found = true;
-                                                break; // keluar dari loop $sewa karena sudah ditemukan
+                                            foreach ($data_sewa as $dat) {
+                                                if ($key->id_sewa == $dat->id_sewa) {
+                                                    $tgal = $key->tanggal;
+                                                    if ($tgal == $hari && $val->id_jam == $dat->id_jam) {
+                                                        $found = true;
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
-
-                                        // tampilkan button
-                                        if ($found) {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <button class="btn btn-danger btn-sm rounded-pill" disabled>
-                                                        <?php echo $val->jam; ?>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <form method="POST" action="<?php echo site_url('Sewa/v_sewa') ?>">
-                                                        <input type="hidden" name="lapangan"
-                                                            value="<?php echo $lapangan->id_lapangan; ?>">
-                                                        <input type="hidden" name="jam" value="<?php echo $val->id_jam; ?>">
-                                                        <input type="hidden" name="tgl" value="<?php echo $hari; ?>">
-                                                        <?php if ($val->time < $waktu_sekarang) { ?>
-                                                            <button type="submit"
-                                                                class="btn btn-primary btn-sm rounded-pill tombolkirim" disabled>
-                                                                <?php echo $val->jam; ?>
-                                                            </button>
-                                                        <?php } else { ?>
-                                                            <button type="submit"
-                                                                class="btn btn-primary btn-sm rounded-pill tombolkirim">
-                                                                <?php echo $val->jam; ?>
-                                                            </button>
-                                                        <?php } ?>
-                                                    </form>
-
-                                                </td>
-                                            </tr>
-                                            <?php
+                                        if (!$found && $part[0] >= $time) {
+                                            echo '<div class="form-check">';
+                                            echo '<input class="form-check-input" type="checkbox" name="jam[]" value="' . $val->id_jam . '">';
+                                            echo '<label class="form-check-label"><button class="btn btn-primary" disabled>' . $val->jam . '</button></label>';
+                                            echo '</div>';
                                         }
                                     }
                                     ?>
-
-                                </tbody>
-                            </table>
-                            <button type="button" id="hari" class="btn btn-primary">Lihat Jadwal</button>
+                                    <button type="submit" class="btn btn-primary mt-3 tombolkirim">Submit</button>
+                                </center>
+                            </form>
                         </div>
+                        <button type="button" id="hari" class="btn btn-primary">Lihat Jadwal</button>
                     </div>
                 </div>
                 <div class="col-sm-6">
-
                     <div class="card">
                         <div class="card-header">
                             <form class="form" method="POST"
@@ -115,20 +93,18 @@
                                         value="<?php echo $lapangan->id_lapangan; ?>">
                                     <div class="col-md-9">
                                         <?php
-                                        date_default_timezone_set('Asia/Jakarta');
-                                        $tgl_m = date('Y-m-d');
-                                        $tgl_min = date('Y-m-d', strtotime('+1 day', strtotime($tgl_m)));
                                         if (isset($tgl)) { ?>
                                             <input type="date" class="form-control datepicker" name="tanggal_input"
-                                                value="<?php echo $tgl; ?>" min="<?php echo $tgl_min; ?>">
+                                                value="<?php echo $tgl; ?>">
                                         <?php } else { ?>
                                             <input type="date" class="form-control datepicker" name="tanggal_input"
-                                                min="<?php echo $tgl_min; ?>" required>
+                                                required>
                                         <?php }
                                         ?>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn btn-primary">Cek Jadwal</button>
+                                        <button type="submit" class="btn btn-primary">Cek
+                                            Jadwal</button>
                                     </div>
                                     <div class="col"></div>
                                 </div><br>
@@ -138,6 +114,7 @@
                                             <?php
                                             if (isset($tgl)) {
                                                 echo date('d-m-Y', strtotime($tgl));
+                                            } else {
                                             }
                                             ?>
                                         </h4>
@@ -146,65 +123,56 @@
                             </form>
                         </div>
 
+
                         <div class="card-body">
                             <?php
                             if (isset($tgl)) { ?>
-                                <table class="table">
-                                    <tbody>
+                                <form class="form" method="POST" action="<?php echo site_url('Sewa/coba_sewa') ?>">
+                                    <center>
                                         <?php
                                         foreach ($jam as $val) {
+
                                             //inisialisasi variabel found
                                             $found = false;
                                             foreach ($sewa as $key) {
-                                                $tagl = $key->tanggal;
-                                                if ($tagl == $tgl && $val->id_jam == $key->id_jam) {
-                                                    // Jika data jam ditemukan di dalam data sewa, maka set variabel $found menjadi true
-                                                    $found = true;
-                                                    break; // keluar dari loop $sewa karena sudah ditemukan
+                                                foreach ($data_sewa as $dat) {
+                                                    if ($key->id_sewa == $dat->id_sewa) {
+                                                        $tagl = $key->tanggal;
+                                                        if ($tagl == $tgl && $val->id_jam == $dat->id_jam) {
+                                                            // Jika data jam ditemukan di dalam data sewa, maka set variabel $found menjadi true
+                                                            $found = true;
+                                                            break; // keluar dari loop $sewa karena sudah ditemukan
+                                                        }
+                                                    }
                                                 }
                                             }
 
                                             // tampilkan button
-                                            $tgl_now = date('Y-m-d');
-                                            $disabled = ($tgl < $tgl_now); // Cek apakah tanggal sudah lewat dari hari ini
                                             if ($found) {
                                                 ?>
-                                                <tr>
-                                                    <td class=" text-center">
-                                                        <button class="btn btn-danger btn-sm rounded-pill" disabled>
-                                                            <?php echo $val->jam; ?>
-                                                        </button>
-                                                    </td>
-                                                </tr>
+
                                                 <?php
                                             } else {
+                                                echo '<div class="form-check">';
+                                                echo '<input class="form-check-input" type="checkbox" name="jam[]" value="' . $val->id_jam . '">';
+                                                echo '<label class="form-check-label"><button class="btn btn-primary" disabled>' . $val->jam . '</button></label>';
+                                                echo '</div>';
                                                 ?>
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <form method="POST" action="<?php echo site_url('Sewa/v_sewa') ?>">
-                                                            <input type="hidden" name="lapangan"
-                                                                value="<?php echo $lapangan->id_lapangan; ?>">
-                                                            <input type="hidden" name="jam" value="<?php echo $val->id_jam; ?>">
-                                                            <input type="hidden" name="tgl" value="<?php echo $tgl; ?>">
-                                                            <button type="submit"
-                                                                class="btn btn-primary btn-sm rounded-pill tombolkirim" <?php echo $disabled ? 'disabled' : ''; ?>>
-                                                                <?php echo $val->jam; ?>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
                                                 <?php
                                             }
                                         }
                                         ?>
-                                    </tbody>
-                                </table>
-                            <?php } ?>
+                                        <input type="hidden" name="lapangan" value="<?php echo $lapangan->id_lapangan; ?>">
+                                        <input type="hidden" name="tgl" value="<?php echo $tgl; ?>"><br>
+                                        <button type="submit" class="btn btn-primary tombolkirim">Submit</button>
+                                    </center>
+                                </form>
+
+                            <?php } else {
+                            }
+                            ?>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -212,7 +180,12 @@
 </div>
 <!-- </div> -->
 </div>
-<br><br><br><br>
+
+
+
+<br><br>
+
+<br><br>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 </script>
 <script>
@@ -240,4 +213,10 @@
         //     }
         // });
     });
+</script>
+<script>
+    // Fungsi untuk menghilangkan pesan peringatan setelah lima detik
+    setTimeout(function () {
+        $('.alert').fadeOut('slow');
+    }, 5000); // 5000 milidetik = 5 detik
 </script>

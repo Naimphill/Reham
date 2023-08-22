@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/assets/css/fontawesome.css') ?>">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(to right, #cc0000 0%, #800000 100%);
+            background-color: rgba(255, 255, 255, 0.5);
+            color: aliceblue;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+
+                <h3 class="text-center mb-4"><b>Sign Up</b></h3>
+                <form method="POST" action="<?php echo site_url('login/save_register') ?>">
+                    <div class="form-group mb-3">
+                        <label for="namalengkap"><b>Nama Lengkap</b></label>
+                        <input type="text" class="form-control rounded-3" name="nama_lengkap" id="namalengkap" placeholder="Enter your name"
+                            required="">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" class="form-control rounded-3" name="username" id="username"
+                            placeholder="Enter your username" required="">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password"><b>Password</b></label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password"
+                                required="">
+                            <div class="input-group-append">
+                                <button class="btn btn-light" type="button" onclick="togglePasswordVisibility()"
+                                    id="button-addon2"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="notelp"><b>No Telepon</b></label>
+                        <input type="text" class="form-control rounded-3" name="no_tlp" id="notelp" placeholder="Enter your number"
+                            required="">
+                    </div>
+                    <button type="submit" class="btn btn-light btn-block mt-4"><b>Sign Up</b></button>
+                    <br>
+                    <p style="color:#000 ;">Already have an account? <a style="color: #fff;" href="<?php echo site_url('Login') ?>"><b>Login</b></a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var passwordVisibilityIcon = document.querySelector("#password + .input-group-append .input-group-text i");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordVisibilityIcon.classList.remove("fa-eye-slash");
+                passwordVisibilityIcon.classList.add("fa-eye");
+            } else {
+                passwordInput.type = "password";
+                passwordVisibilityIcon.classList.remove("fa-eye");
+                passwordVisibilityIcon.classList.add("fa-eye-slash");
+            }
+        }
+    </script>
+</body>
+
+</html>

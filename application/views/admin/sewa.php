@@ -23,8 +23,8 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">ID Boking</th>
-                    <th scope="col">Username</th>
+                    <th scope="col">ID Booking</th>
+                    <th scope="col">Uname</th>
                     <th scope="col">Lapangan</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Jam</th>
@@ -32,7 +32,7 @@
                     <th scope="col">Sisa</th>
                     <th scope="col">Bukti DP</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Act</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,18 +65,24 @@
                             <td>
                                 <?php echo date_create($val->tanggal)->format('d/m/Y'); ?>
                             </td>
-                            <?php foreach ($jam as $tjm) {
-                                if ($tjm->id_jam == $val->id_jam) {
-                                    $nm_jam = $tjm->jam;
-                                    $nm_harga = $tjm->harga; ?>
-                                    <td>
-                                        <?php echo $tjm->jam; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo number_format($tjm->harga, 0, ',', '.'); ?>
-                                    </td>
-                                <?php }
-                            } ?>
+                            <td>
+                                <?php $tbayar = 0;
+                                foreach ($data_sewa as $dat) {
+                                    if ($ids == $dat->id_sewa) {
+                                        foreach ($jam as $tjm) {
+                                            if ($tjm->id_jam == $dat->id_jam) {
+                                                $nm_jam[] = $tjm->jam;
+                                                $tbayar = $tbayar + $tjm->harga;
+                                                $nm_harga = $tjm->harga;
+                                                echo $tjm->jam . "<br>";
+                                            }
+                                        }
+                                    }
+                                } ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($tbayar, 0, ',', '.'); ?>
+                            </td>
                             <?php foreach ($bukti as $buk) {
                                 if ($buk->id_sewa == $val->id_sewa) {
                                     $idb = $buk->id_bukti;
@@ -189,7 +195,7 @@
                                                     <input type="hidden" class="form-control" name="id_bukti"
                                                         value="<?php echo $idb; ?>">
                                                     <input type="hidden" class="form-control" name="bayar"
-                                                        value="<?php echo $tot; ?>">
+                                                        value="<?php echo $tbayar; ?>">
                                                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect"
                                                         name="status_byr">
                                                         <option value="<?php echo $status_byr; ?>" selected><?php echo $status_byr; ?></option>
@@ -219,13 +225,13 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Tanggal & Jam</label>
-                                                <input type="text" class="form-control" readonly name=""
-                                                    value="<?php echo $val->tanggal . '/' . $nm_jam; ?>">
+                                                <input type="text" class="form-control" readonly name="" value="<?php echo $val->tanggal . '/' . implode(", ", $nm_jam);
+                                                ; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Total Bayar</label>
                                                 <input type="text" class="form-control" readonly name=""
-                                                    value="<?php echo number_format($nm_harga, 0, ',', '.'); ?>">
+                                                    value="<?php echo number_format($tbayar, 0, ',', '.'); ?>">
                                             </div>
                                             <p><b>Data Pembayaran</b></p>
                                             <div class="form-group">

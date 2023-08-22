@@ -44,15 +44,20 @@
                                 <td>
                                     <?php echo $key->tanggal; ?>
                                 </td>
-                                <?php foreach ($jam as $val) {
-                                    if ($val->id_jam == $key->id_jam) {
-                                        $tot = $val->harga;
-                                        $jml = $tot - '50000'; ?>
-                                        <td>
-                                            <?php echo $val->jam; ?>
-                                        </td>
-                                    <?php }
-                                } ?>
+                                <td>
+                                    <?php foreach ($data_sewa as $dat) {
+                                        if ($id_sewa == $dat->id_sewa) {
+                                            foreach ($jam as $val) {
+                                                if ($val->id_jam == $dat->id_jam) {
+                                                    $tot = $val->harga;
+                                                    $jml = $tot - '50000'; ?>
+                                                    <?php echo $val->jam . "<br>"; ?>
+                                                <?php }
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </td>
                                 <td>
                                     <a href="<?php echo site_url('Sewa/detail_sewa/' . $key->id_sewa); ?>"
                                         class="btn btn-primary">Detail</a>

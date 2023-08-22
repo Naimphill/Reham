@@ -16,7 +16,13 @@ class Mcrud extends CI_Model
         $q = $this->db->get($tabel);
         return $q;
     }
-
+    public function get_all_data_d($tabel, $order_by_column = NULL, $order_by_type = 'ASC')
+    {
+        if ($order_by_column) {
+            $this->db->order_by($order_by_column, $order_by_type);
+        }
+        return $this->db->get($tabel)->result();
+    }
     public function insert($tabel, $data)
     {
         $this->db->insert($tabel, $data);

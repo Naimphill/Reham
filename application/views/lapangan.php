@@ -117,7 +117,7 @@
                                             <tr>
                                                 <td colspan="3" class="text-center">*Ket <br><button
                                                         class="btn btn-danger btn-sm rounded-pill" disabled></button> :
-                                                    Diboking | <button class="btn btn-primary btn-sm rounded-pill"></button>
+                                                    Dibooking | <button class="btn btn-primary btn-sm rounded-pill"></button>
                                                     : Kosong
                                                 </td>
                                             </tr>

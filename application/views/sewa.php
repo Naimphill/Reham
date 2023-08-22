@@ -55,6 +55,15 @@
                             <input type="file" name="bukti" class="form-control-file" id="exampleFormControlFile1"
                                 required>
                         </div>
+                        <?php
+                        $jam_values = array(); // Array untuk menyimpan nilai id_jam
+                        foreach ($jam as $key) {
+                            $jam_values[] = $key->id_jam; // Menyimpan nilai id_jam dalam array
+                        }
+                        $id_jam_string = implode(',', $jam_values); // Menggabungkan nilai-nilai array dengan koma
+                        ?>
+                        <input type="text" name="id_jam" class="form-control" value="<?php echo $id_jam_string; ?>"
+                            readonly>
                         <button type="submit" class="btn btn-lg btn-primary">Kirim</button>
                         <a class="btn btn-lg btn-danger" href="<?php echo site_url('Sewa') ?>">Cancel</a>
                     </form>
@@ -62,7 +71,8 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body bg-success">
-                            <h4 style="color:#fff ;">Silahkan lakukan pembayaran DP (Wajib Rp. 50.000) untuk memboking
+                            <h4 style="color:#fff ;">Silahkan lakukan pembayaran DP (Wajib Rp. 50.000/Jam) untuk
+                                membooking
                                 lapangan</h4>
                         </div>
                     </div>

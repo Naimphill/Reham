@@ -33,6 +33,8 @@ class Adminpanel extends CI_Controller
             redirect('Dashboard');
         } elseif ($hak_akses == 'manager') {
             redirect('admin/Manager');
+        } elseif ($hak_akses == 'owner') {
+            redirect('admin/Owner');
         } elseif ($hak_akses == 'admin') {
             // lanjutkan ke halaman admin panel
         }
@@ -68,26 +70,49 @@ class Adminpanel extends CI_Controller
         //load view
         $this->load->view('template_admin', $data);
     }
+    // public function sewa()
+    // {
+    //     $data['content'] = "admin/sewa";
+    //     $data['sewa'] = $this->Mcrud->get_all_data('t_sewa', NULL, NULL, 'tanggal DESC')->result();
+    //     $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
+    //     $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
+    //     $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
+    //     //load view
+    //     $this->load->view('template_admin', $data);
+    // }
     public function sewa()
     {
         $data['content'] = "admin/sewa";
-        $data['sewa'] = $this->Mcrud->get_all_data('t_sewa', NULL, NULL, 'tanggal DESC')->result();
-        $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
-        $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
-        $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
-        //load view
+        $data['sewa'] = $this->Mcrud->get_all_data_d('t_sewa', 'tanggal', 'DESC'); // Mengurutkan berdasarkan tanggal secara descending
+        $data['jam'] = $this->Mcrud->get_all_data_d('t_jam');
+        $data['bukti'] = $this->Mcrud->get_all_data_d('t_bukti');
+        $data['user'] = $this->Mcrud->get_all_data_d('t_pelanggan');
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
+        // Load view
         $this->load->view('template_admin', $data);
     }
     public function laporan_sewa()
     {
         $data['content'] = "admin/laporan_sewa";
-        $data['bukti'] = $this->Mcrud->get_all_data('t_bukti', NULL, NULL, 'tanggal DESC')->result();
+        $data['bukti'] = $this->Mcrud->get_all_data('t_bukti', 'NULL, NULL', 'tanggal DESC')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
         //load view
         $this->load->view('template_admin', $data);
     }
+    // public function laporan_sewa()
+    // {
+    //     $data['content'] = "admin/laporan_sewa";
+    //     $data['bukti'] = $this->Mcrud->get_all_data_d('t_bukti', 'tgl_bayar', 'DESC'); // Mengurutkan berdasarkan tanggal secara descending
+    //     $data['jam'] = $this->Mcrud->get_all_data_d('t_jam');
+    //     $data['sewa'] = $this->Mcrud->get_all_data_d('t_sewa');
+    //     $data['user'] = $this->Mcrud->get_all_data_d('t_pelanggan');
+    //     // Load view
+    //     $this->load->view('template_admin', $data);
+    // }
+
     public function jadwal()
     {
         // load view
@@ -97,6 +122,7 @@ class Adminpanel extends CI_Controller
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['jadwal'] = $this->Mcrud->get_all_data('t_jam')->result();
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
         $this->load->view('template_admin', $data);
     }
     public function laporancari()
@@ -119,6 +145,7 @@ class Adminpanel extends CI_Controller
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
         //load view
         $data['content'] = "admin/laporan_sewa";
         $this->load->view('template_admin', $data);
@@ -132,6 +159,7 @@ class Adminpanel extends CI_Controller
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['jadwal'] = $this->Mcrud->get_all_data('t_jam')->result();
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
         //load view
         $data['content'] = "admin/jadwal";
         $this->load->view('template_admin', $data);
@@ -214,6 +242,14 @@ class Adminpanel extends CI_Controller
     {
         $ids = $_POST['id_sewa'];
         $idb = $_POST['id_bukti'];
+        $this->db->where('id_sewa', $ids);
+        $query = $this->db->get('t_data_sewa');
+        $data_sewa = $query->result();
+        foreach ($data_sewa as $key) {
+            $idd = $key->id_data;
+            $data_sewa = array('id_data' => $idd);
+            $this->Mcrud->hapus_data($data_sewa, 't_data_sewa');
+        }
         $datasewa = array('id_sewa' => $ids);
         $databukti = array('id_bukti' => $idb);
         $this->Mcrud->hapus_data($datasewa, 't_sewa');
@@ -279,6 +315,7 @@ class Adminpanel extends CI_Controller
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
         //load view
         $this->load->view('admin/cetak_laporan', $data);
     }
@@ -297,9 +334,8 @@ class Adminpanel extends CI_Controller
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
         //load view
         $this->load->view('admin/cetak_sewa', $data);
     }
-
-
 }

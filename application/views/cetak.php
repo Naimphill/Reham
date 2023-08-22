@@ -23,6 +23,7 @@
                         if ($buk->id_sewa == $sew->id_sewa) {
                             $tgl = $buk->tgl_bayar;
                             $id_bukti = $buk->id_bukti;
+                            $tbayar = $buk->tot_biaya;
                         }
                     }
                 } ?>
@@ -57,7 +58,7 @@
                         <?php echo $id_bukti; ?>
                     </h5>
                     <center>
-                        <h2>Bukti Pembayaran</h2>
+                        <h2>Bukti Pemesanan</h2>
                     </center>
                 </div>
             </div>
@@ -74,7 +75,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($sewa as $key) { ?>
+                    <?php foreach ($sewa as $key) {
+                        $id_sewa = $key->id_sewa; ?>
                         <tr>
                             <th scope="row">1</th>
                             <td>
@@ -89,25 +91,38 @@
                             <td>
                                 <?php echo $key->tanggal; ?>
                             </td>
-                            <?php foreach ($jam as $val) {
-                                if ($val->id_jam == $key->id_jam) {
-                                    $tot = $val->harga;
-                                    $jml = $tot - '50000'; ?>
-                                    <td>
-                                        <?php echo $val->jam; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo "Rp. " . number_format($tot, 0, ',', '.'); ?>
-                                    </td>
-                                <?php }
-                            } ?>
+                            <td>
+                                <?php foreach ($data_sewa as $dat) {
+                                    if ($dat->id_sewa == $id_sewa) {
+                                        foreach ($jam as $val) {
+                                            if ($val->id_jam == $dat->id_jam) {
+                                                echo $val->jam . "<br>";
+                                            }
+                                        }
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php foreach ($data_sewa as $dat) {
+                                    if ($dat->id_sewa == $id_sewa) {
+                                        foreach ($jam as $val) {
+                                            if ($val->id_jam == $dat->id_jam) {
+                                                echo "Rp. " . number_format($val->harga, 0, ',', '.') . '<br>';
+                                            }
+                                        }
+                                    }
+                                }
+                                ?>
+                            </td>
 
                         </tr>
                         <tr>
                             <td colspan="5"></td>
                             <td>Sub Total</td>
                             <td>
-                                <?php echo "Rp. " . number_format($tot, 0, ',', '.'); ?>
+                                <?php $jml = $tbayar - '50000';
+                                echo "Rp. " . number_format($tbayar, 0, ',', '.'); ?>
                             </td>
                         </tr>
                         <tr>
@@ -118,9 +133,8 @@
                         <tr>
                             <td colspan="5"></td>
                             <td class="bg-danger">Bayar</td>
-                            <td class="bg-danger"><b>
-                                    <?php echo "Rp. " . number_format($jml, 0, ',', '.'); ?>
-                                </b>
+                            <td class="bg-danger">
+                                <?php echo "Rp. " . number_format($jml, 0, ',', '.'); ?>
                             </td>
                         </tr>
                     <?php } ?>

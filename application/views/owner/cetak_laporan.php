@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Sewa Lapangan Reham Futsal
+    <title>Laporan Penerimaan Kas Lapangan Reham Futsal
         <?php echo 'Tanggal ' . $tgl_mulai . ' - ' . $tgl_akhir; ?>
     </title>
 
@@ -18,7 +18,7 @@
 <body>
     <div class="container">
         <center>
-            <h2>Laporan Sewa</h2>
+            <h2>Laporan Penerimaan Kas</h2>
             <p>
                 <?php echo 'Tanggal ' . $tgl_mulai . ' - ' . $tgl_akhir; ?>
                 <br>Status :
@@ -30,7 +30,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">ID Invoice</th>
-                    <th scope="col">ID Boking</th>
+                    <th scope="col">ID Booking</th>
                     <th scope="col">Nama Pelanggan</th>
                     <th scope="col">Tanggal Bayar</th>
                     <th scope="col">Total</th>
@@ -49,7 +49,7 @@
                         $tot_b = $buk->tot_biaya;
                         $total += $tot_b; // menambahkan nilai $tot_b ke variabel $total
                         $tanggal = date('Y-m-d', strtotime($buk->tgl_bayar)); // mengambil data tanggal dengan format Y-m-d
-                        ?>
+                    ?>
                         <tr>
                             <td>
                                 <?php echo $no++; ?>
@@ -121,7 +121,7 @@
                                     $tot_b = $buk->tot_biaya;
                                     $total += $tot_b; // menambahkan nilai $tot_b ke variabel $total
                                     $tanggal = date('Y-m-d', strtotime($buk->tgl_bayar)); // mengambil data tanggal dengan format Y-m-d
-                                    ?>
+                    ?>
                                     <tr>
                                         <td>
                                             <?php echo $no++; ?>
@@ -157,11 +157,10 @@
                                             <?php echo number_format($buk->bayar, 0, ',', '.'); ?>
                                         </td>
                                     </tr>
-                                    <?php
+                    <?php
                                 }
                             }
                         }
-
                     } ?>
                     <tr>
                         <td colspan="5">

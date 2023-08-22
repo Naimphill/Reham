@@ -34,6 +34,8 @@ class Manager extends CI_Controller
             redirect('Dashboard');
         } elseif ($hak_akses == 'admin') {
             redirect('admin/Adminpanel');
+        } elseif ($hak_akses == 'owner') {
+            redirect('admin/Owner');
         } elseif ($hak_akses == 'manager') {
             // lanjutkan ke halaman admin panel
         }
@@ -50,7 +52,7 @@ class Manager extends CI_Controller
     public function sewa()
     {
         $data['content'] = "manager/sewa";
-        $data['sewa'] = $this->Mcrud->get_data_sewa_sorted_by_tanggal_desc();
+        $data['sewa'] = $this->Mcrud->get_all_data('t_sewa', NULL, NULL, 'tanggal DESC')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
@@ -60,7 +62,7 @@ class Manager extends CI_Controller
     public function laporan_sewa()
     {
         $data['content'] = "manager/laporan_sewa";
-        $data['bukti'] = $this->Mcrud->get_data_bukti_sorted_by_tanggal_desc();
+        $data['bukti'] = $this->Mcrud->get_all_data('t_bukti', NULL, NULL, 'tanggal DESC')->result();
         $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
         $data['user'] = $this->Mcrud->get_all_data('t_pelanggan')->result();
@@ -74,20 +76,6 @@ class Manager extends CI_Controller
         // load data
         $data['pengguna'] = $this->Mcrud->get_all_data('t_pengguna')->result();
         $this->load->view('template_manager', $data);
-    }
-    public function edit_pengguna()
-    {
-        $id = $_POST['id_pengguna'];
-        $username = $_POST['username'];
-        $password = md5($_POST['password']);
-
-        $dataUpdate = array(
-            'username' => $username,
-            'password' => $password
-        );
-        $this->Mcrud->update('t_pengguna', $dataUpdate, 'id_pengguna', $id);
-        $this->session->set_flashdata('flash', 'Diubah');
-        redirect('admin/manager/pengguna');
     }
     public function laporancari()
     {
@@ -103,7 +91,7 @@ class Manager extends CI_Controller
         $query = $this->db->select('*')->from('t_bukti')
             ->where('tgl_bayar >=', $tgl_mulai)
             ->where('tgl_bayar <=', $tgl_akhir)
-            ->order_by('tgl_bayar', 'DESC')
+            ->order_by('tgl_bayar', 'asc')
             ->get();
         $data['bukti'] = $query->result();
         $data['sewa'] = $this->Mcrud->get_all_data('t_sewa')->result();
@@ -187,6 +175,7 @@ class Manager extends CI_Controller
         $this->load->view('manager/cetak_laporan', $data);
     }
 
+
     public function export_excel()
     {
         // Load library PHPExcel
@@ -214,7 +203,7 @@ class Manager extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', 'No')
             ->setCellValue('B1', 'ID Invoice')
-            ->setCellValue('C1', 'ID Boking')
+            ->setCellValue('C1', 'ID Booking')
             ->setCellValue('D1', 'Nama Pelanggan')
             ->setCellValue('E1', 'Tanggal Bayar')
             ->setCellValue('F1', 'Total');
@@ -245,5 +234,48 @@ class Manager extends CI_Controller
         $objWriter->save('php://output');
     }
 
+    public function edit_pengguna()
+    {
+        $this->load->model('Mcrud');
+        $id = $_POST['id_pengguna'];
+        $username = $_POST['username'];
+        $hak_akses = $_POST['hak_akses'];
+        //var_dump($username);
+        //var_dump($hak_akses);
+        //var_dump($id);
+        $dataUpdate = array(
+            'username' => $username,
+            'hak_akses' => $hak_akses
+        );
+        $this->Mcrud->update('t_pengguna', $dataUpdate, 'id_pengguna', $id);
+        $this->session->set_flashdata('flash', 'Disimpan');
+        redirect('admin/Manager/pengguna');
+    }
 
+    public function save_pengguna()
+    {
+        $this->load->model('Mcrud');
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
+        $hak_akses = $_POST['hak_akses'];
+        $dataInsert = array(
+            'username' => $username,
+            'password' => $password,
+            'hak_akses' => $hak_akses
+        );
+        $this->Mcrud->insert('t_pengguna', $dataInsert);
+        $this->session->set_flashdata('flash', 'Data Berhasil Disimpan');
+        redirect('admin/Manager/pengguna');
+    }
+
+    public function hapus_pengguna()
+    {
+        // Mengambil nilai ID pengguna dari segmen URL (segmen ke-3)
+        $id = $this->uri->segment(4);
+        $datawhere = array('id_pengguna' => $id);
+        //var_dump($datawhere);
+        $this->Mcrud->hapus_data($datawhere, 't_pengguna');
+        $this->session->set_flashdata('flash', 'Dihapus');
+        redirect('admin/Manager/pengguna');
+    }
 }
