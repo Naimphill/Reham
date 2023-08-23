@@ -47,6 +47,8 @@
                                             if ($hahi->tanggal == $hari_ini && $jem->id_jam == $id_time) {
                                                 echo 'Id Sewa : ' . $hahi->id_sewa . '<br>';
                                             }
+                                        } else {
+                                            echo 'Tidak ada yg bermain';
                                         }
                                     }
                                 }
