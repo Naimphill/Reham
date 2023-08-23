@@ -15,13 +15,14 @@
         </div>
     </div>
     <div class="container">
-        <table class="table">
+        <table id="myTable" class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Username</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Telp</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -32,25 +33,48 @@
                     </tr>
                 <?php else: ?>
                     <?php $no = 1;
-                    foreach ($pelanggan as $val) { ?>
-                        <tr>
-                            <td>
-                                <?php echo $no++; ?>
-                            </td>
-                            <td>
-                                <?php echo $val->username; ?>
-                            </td>
-                            <td>
-                                <?php echo $val->nama_lengkap; ?>
-                            </td>
-                            <td>
-                                <?php echo $val->no_tlp; ?>
-                            </td>
-                            <td><a class="btn btn-outline-dark tombolhapus"
-                                    href="<?php echo site_url('admin/Adminpanel/hapus_pelanggan/' . $val->id_pelanggan); ?>"><i
-                                        class="bi bi-trash"></i></a></td>
-                        </tr>
-                    <?php }endif; ?>
+                    foreach ($pelanggan as $val) {
+                        if ($val->hak_akses == 'member') { ?>
+                            <tr>
+                                <td>
+                                    <?php echo $no++; ?>
+                                </td>
+                                <td>
+                                    <?php echo $val->username; ?>
+                                </td>
+                                <td>
+                                    <?php echo $val->nama_lengkap; ?>
+                                </td>
+                                <td>
+                                    <?php echo $val->no_tlp; ?>
+                                </td>
+                                <td>Member</td>
+                                <td><a class="btn btn-outline-dark tombolhapus"
+                                        href="<?php echo site_url('admin/Adminpanel/hapus_pelanggan/' . $val->id_pelanggan); ?>"><i
+                                            class="bi bi-trash"></i></a></td>
+                            </tr>
+                        <?php } else { ?>
+                            <tr>
+                                <td>
+                                    <?php echo $no++; ?>
+                                </td>
+                                <td>
+                                    <?php echo $val->username; ?>
+                                </td>
+                                <td>
+                                    <?php echo $val->nama_lengkap; ?>
+                                </td>
+                                <td>
+                                    <?php echo $val->no_tlp; ?>
+                                </td>
+                                <td>Pelanggan</td>
+                                <td><a class="btn btn-outline-dark tombolhapus"
+                                        href="<?php echo site_url('admin/Adminpanel/hapus_pelanggan/' . $val->id_pelanggan); ?>"><i
+                                            class="bi bi-trash"></i></a></td>
+                            </tr>
+                        <?php }
+                    }
+                endif; ?>
             </tbody>
         </table>
         <div class="row">

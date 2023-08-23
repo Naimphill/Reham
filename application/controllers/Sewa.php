@@ -27,7 +27,7 @@ class Sewa extends CI_Controller
         $hak_akses = $this->session->userdata('hak_akses');
 
         if (empty($username) || empty($hak_akses)) {
-            $this->session->set_flashdata('flash', 'Harus Login Dahulu');
+            $this->session->set_flashdata('flash-login', 'Harus Login Dahulu');
             redirect('Dashboard');
         }
 
@@ -353,5 +353,154 @@ class Sewa extends CI_Controller
         $this->Mcrud->insert('t_bukti', $dataInsertbukti);
         $this->session->set_flashdata('pembayaran', 'Disimpan');
         redirect('Sewa/detail_sewa/' . $id_sewa);
+    }
+    public function ubah_user()
+    {
+        $id_pelanggan = $this->session->userdata('id_pelanggan');
+        $dataubah = array('hak_akses' => 'member');
+        $this->Mcrud->update('t_pelanggan', $dataubah, 'id_pelanggan', $id_pelanggan);
+        $this->session->set_flashdata('flash-data', 'Menjadi Member');
+        redirect('Member');
+    }
+    public function member()
+    {
+        $data['content'] = "member";
+        $id_pelanggan = $this->session->userdata('id_pelanggan');
+        $this->db->where('id_pelanggan', $id_pelanggan);
+        $data['sewa'] = $this->db->where('id_pelanggan', $id_pelanggan)
+            ->order_by('tanggal', 'asc')
+            ->get('t_sewa')->result();
+        $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
+        $data['bukti'] = $this->Mcrud->get_all_data('t_bukti')->result();
+        $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
+        $data['lapangan'] = $this->Mcrud->get_all_data('t_lapangan')->result();
+        //load view
+        $this->load->view('template', $data);
+    }
+    public function member_sewa()
+    {
+        // Ambil nilai 'id_lapangan' dan 'id_jam' dari form
+        $id_lapangan = $_POST['id_lapangan'];
+        $id_pelanggan = $this->session->userdata('id_pelanggan');
+        $id_jam = $_POST['jam']; //Array
+        $idsArray = array(); // Inisialisasi array untuk menyimpan id_sewa
+        $initialTanggal = $_POST['tanggal'];
+        $tanggal = $initialTanggal;
+        $count = count($id_jam);
+        $no = 1;
+        foreach ($id_jam as $key) {
+            ${'jam_' . $no} = $key;
+            $no++;
+        }
+        for ($i = 0; $i < 4; $i++) {
+            $newTanggal = date('Y-m-d', strtotime($tanggal . " +1 week"));
+
+            // Buat query untuk mengambil nilai 'id_sewa' terakhir dari tabel 'sewa'
+            $this->db->select_max('id_sewa');
+            $this->db->where('id_lapangan', $id_lapangan);
+            $query = $this->db->get('t_sewa');
+            $row = $query->row();
+            $last_id_sewa = $row->id_sewa;
+            $last_urut = intval(substr($last_id_sewa, -5));
+            $new_urut = $last_urut + 1;
+            $new_urut_str = str_pad($new_urut, 5, '0', STR_PAD_LEFT);
+            $new_id_sewa = 'R' . $id_lapangan . $new_urut_str;
+            if ($i === 0) { // Jika ini adalah iterasi pertama
+                $ids = $new_id_sewa; // Simpan nilai $new_id_sewa ke dalam $ids
+                $tgl = $tanggal;
+            }
+            // Simpan data pada tabel 'sewa' dengan nilai 'id_sewa' yang baru
+            $dataInsertsewa = array(
+                'id_sewa' => $new_id_sewa,
+                'id_pelanggan' => $id_pelanggan,
+                'id_lapangan' => $id_lapangan,
+                'tanggal' => $tanggal,
+                'status' => 'Belum Main'
+            );
+            $this->Mcrud->insert('t_sewa', $dataInsertsewa);
+            $idsArray[] = $new_id_sewa; // Tambahkan $new_id_sewa ke dalam array $idsArray
+            // Set tanggal baru untuk perulangan berikutnya
+            $tanggal = $newTanggal;
+            // Save jam
+            foreach ($id_jam as $jam) {
+                $dataInsertjam = array(
+                    'id_sewa' => $new_id_sewa,
+                    'id_jam' => $jam
+                );
+                $this->Mcrud->insert('t_data_sewa', $dataInsertjam);
+            }
+        }
+
+        $data['idj'] = array();
+        for ($i = 1; $i <= $count; $i++) {
+            $data['idj']['jam_' . $i] = ${'jam_' . $i};
+        }
+        $data['id_sewa'] = $idsArray;
+        $data['ids'] = $ids;
+        $data['idp'] = $id_pelanggan;
+        $data['idl'] = $id_lapangan;
+        $data['tgl'] = $tgl;
+        $data['content'] = "member_sewa";
+        $data['lapangan'] = $this->Mcrud->get_all_data('t_lapangan')->result();
+        $data['jam'] = $this->Mcrud->get_all_data('t_jam')->result();
+        //load view
+        $this->load->view('template', $data);
+    }
+    public function sv_member_sewa()
+    {
+        // Ambil nilai dari form
+        $id_sewa = $_POST['id_sewa'];
+        $tot_bayar = $_POST['tot_biaya'];
+        $bayar = $_POST['bayar'];
+        $id_pelanggan = $this->session->userdata('id_pelanggan');
+        if ($bayar == $tot_bayar) {
+            $status = 'LUNAS';
+        } else {
+            $status = 'DP';
+        }
+        // SAVE DATA SEWA
+        //setting file foto
+        $data_file = $_FILES['bukti'];
+        $config['file_name'] = time() . $data_file['name'];
+        $config['upload_path'] = './upload_bukti/';
+        $config['allowed_types'] = 'jpg|png|jpeg|PNG';
+        $config['max_size'] = 2048;
+
+        $this->load->library('upload', $config);
+        //upload foto
+        $this->upload->do_upload('bukti');
+        $data = $this->upload->data();
+        $bukti = $data['file_name'];
+
+        // SAVE DATA BUKTI
+
+        foreach ($id_sewa as $key) {
+            // Ambil nomor urut terakhir dari 'id_sewa'
+            $this->db->select_max('id_bukti');
+            $query = $this->db->get('t_bukti');
+            $row = $query->row();
+            $last_id_bukti = $row->id_bukti;
+            $last_urut = intval(substr($last_id_bukti, -5));
+
+            // Buat nomor urut baru dengan menambahkan 1 pada nomor urut terakhir
+            $new_urut = $last_urut + 1;
+            $new_urut_str = str_pad($new_urut, 5, '0', STR_PAD_LEFT);
+
+            // Gabungkan nilai 'R', 'id_lapangan', 'id_jam', dan nomor urut baru untuk menghasilkan 'id_sewa' yang baru
+            $new_id_bukti = 'KM' . $new_urut_str;
+            $dataInsertbukti = array(
+                'id_bukti' => $new_id_bukti,
+                'id_sewa' => $key,
+                'tgl_bayar' => date('Y-m-d H:i:s'),
+                'bayar' => $bayar,
+                'tot_biaya' => $tot_bayar,
+                'bukti' => $bukti,
+                'status' => $status
+            );
+            $this->Mcrud->insert('t_bukti', $dataInsertbukti);
+        }
+        $data['id_sewa'] = $id_sewa;
+        $this->session->set_flashdata('flash', 'Disimpan');
+        redirect('Sewa/riwayat', $data);
     }
 }

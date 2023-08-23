@@ -15,6 +15,7 @@
                             $id_bukti = $buk->id_bukti;
                             $bukti_tf = $buk->bukti;
                             $tbayar = $buk->tot_biaya;
+                            $bayar_b = $buk->bayar;
                         }
                     }
                 } ?>
@@ -118,14 +119,16 @@
                             <td colspan="5"></td>
                             <td>Sub Total</td>
                             <td>
-                                <?php $jml = $tbayar - '50000';
+                                <?php $jml = $tbayar - $bayar_b;
                                 echo "Rp. " . number_format($tbayar, 0, ',', '.'); ?>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="5"></td>
                             <td>DP</td>
-                            <td>Rp. 50.000</td>
+                            <td>
+                                <?php echo "Rp. " . number_format($bayar_b, 0, ',', '.'); ?>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="5"></td>

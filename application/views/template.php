@@ -79,6 +79,12 @@ https://templatemo.com/tm-563-seo-dream
                             <li class="scroll-to-section"><a href="#kontak">Kontak</a></li>
                             </li>
                             <?php if (!empty($this->session->userdata('id_pelanggan'))) { ?>
+
+                                <?php $status = $this->session->userdata('status');
+                                if ($status == 'member') { ?>
+                                    <li class="scroll-to-section"><a href="<?php echo site_url('Sewa/member') ?>">Member</a>
+                                    </li>
+                                <?php } ?>
                                 <li class="scroll-to-section"><a href="<?php echo site_url('Sewa/riwayat') ?>">Riwayat
                                         Booking</a>
                                 <li class="scroll-to-section btn btn-danger btn-sm"><a class="tombolhapus"
@@ -102,7 +108,353 @@ https://templatemo.com/tm-563-seo-dream
 
     <?php $this->load->view($content); ?>
 
+    <?php $status = $this->session->userdata('status');
+    if (!empty($this->session->userdata('id_pelanggan'))) {
+    }
+    if ($status == 'pelanggan') { ?>
+        <hr>
+        <div id="member" class="about-us section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="left-image wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.5s">
+                            <img src="<?php echo base_url('assets/template/assets/images/about-left-image.png') ?>" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 align-self-center wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <div class="section-heading">
+                            <h6>Menu Member</h6>
+                            <h2>Ingin Bergabung Menjadi <em>Member?</em>
+                            </h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="about-item">
+                                    <h4>Gratis</h4>
+                                    <h6>Daftar</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="about-item">
+                                    <h4>Jadwal Mingguan</h4>
+                                    <h6>Keuntungan</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Ingin Boking Mingguan Langsung? Dapatkan Keuntungan menjadi Member !</p>
+                        <div class=""><a class="btn btn-rounded btn-primary tombolmember"
+                                href="<?php echo site_url('Sewa/ubah_user') ?>">Daftar Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+    <?php } else { ?>
+        <!-- <br><br><br><br>
+        <div id="member" class="about-us section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <center>
+                            <div class="section-heading">
+                                <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+                                    <h6>Menu Member</h6>
+                                    <h2><em>Selamat Datang </em> <span>
+                                            <?php // echo $this->session->userdata('status'); ?>
+                                        </span></h2>
+                                </div>
+                            </div>
+                            <div class="section-heading wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s">
+                                <a href="<?php // echo site_url('Sewa/member') ?>" class="btn btn-lg btn-primary">Masuk Menu
+                                    Member</a>
+                            </div>
+                        </center>
+                    </div>
 
+                </div>
+            </div>
+        </div> -->
+    <?php } ?>
+
+    <div id="portfolio" class="our-portfolio section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+                        <h6>Fasilitas Kami</h6>
+                        <h2><em>Fasilitas</em> yang kami <span>Sediakan</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="loop owl-carousel">
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/1.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 1</h4>
+                                            </a>
+                                            <span>Papan Nama</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/2.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 2</h4>
+                                            </a>
+                                            <span>Tempat Parkir</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/3.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 3</h4>
+                                            </a>
+                                            <span>Ruang Admin dan Penjaga</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/4.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 4</h4>
+                                            </a>
+                                            <span>Kantin</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/5.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 5</h4>
+                                            </a>
+                                            <span>Tempat Tunggu</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/6.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 6</h4>
+                                            </a>
+                                            <span>Bola</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/7.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 7</h4>
+                                            </a>
+                                            <span>Papan Skor</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/8.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 8</h4>
+                                            </a>
+                                            <span>Bench Pemain Pengganti</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/9_1.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 9-1</h4>
+                                            </a>
+                                            <span>Toilet 1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/9_2.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 9-2</h4>
+                                            </a>
+                                            <span>Toilet 2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/10_1.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 10-1</h4>
+                                            </a>
+                                            <span>Mushola 1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/10_2.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 10-2</h4>
+                                            </a>
+                                            <span>Mushola 2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/10_3.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 10-3</h4>
+                                            </a>
+                                            <span>Mushola 3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/11_1.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 11-1</h4>
+                                            </a>
+                                            <span>Lapangan 1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/11_2.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 11-2</h4>
+                                            </a>
+                                            <span>Lapangan 1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/12_1.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 12-1</h4>
+                                            </a>
+                                            <span>Lapangan 2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <img style="width:100%;height:100%; max-width:450px; max-height:450px;"
+                                        src="<?php echo base_url('assets/gambar_fasilitas/12_2.jpg') ?>" alt="">
+                                    <div class="hover-content">
+                                        <div class="inner-content">
+                                            <a href="#">
+                                                <h4>Fasilitas 12-2</h4>
+                                            </a>
+                                            <span>Lapangan 2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="bg-danger">
         <div id="kontak" class="container">
             <div class="row">
@@ -179,12 +531,20 @@ https://templatemo.com/tm-563-seo-dream
         });
     </script>
     <script>
-        const flashData = $('.flash-login').data('flashdata');
-
+        const flashData = $('.flash-data').data('flashdata');
         if (flashData) {
             Swal.fire({
+                title: 'Data',
+                text: 'Berhasil ' + flashData,
+                icon: 'success'
+            });
+        }
+        const flashLoginData = $('.flash-login').data('flashdata');
+
+        if (flashLoginData) {
+            Swal.fire({
                 title: 'Maaf',
-                text: 'Anda ' + flashData,
+                text: 'Anda ' + flashLoginData,
                 icon: 'warning'
             });
         }
@@ -243,6 +603,25 @@ https://templatemo.com/tm-563-seo-dream
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit(); // submit form jika tombol "OK" ditekan
+                }
+            })
+        });
+        // Tombol Member
+        $('.tombolmember').on('click', function (e) {
+            e.preventDefault();
+            const href = $(this).attr('href');
+
+            Swal.fire({
+                title: 'Kamu Yakin?',
+                text: "Akan Menjadi Member ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Daftar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = href;
                 }
             })
         });

@@ -88,6 +88,7 @@ class Adminpanel extends CI_Controller
         $data['bukti'] = $this->Mcrud->get_all_data_d('t_bukti');
         $data['user'] = $this->Mcrud->get_all_data_d('t_pelanggan');
         $data['data_sewa'] = $this->Mcrud->get_all_data('t_data_sewa')->result();
+        $data['sw'] = $this->Mcrud->get_all_data('t_sewa')->result();
         // Load view
         $this->load->view('template_admin', $data);
     }

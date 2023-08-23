@@ -18,6 +18,50 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col">
+            <div class="card bg-warning">
+                <div class="card-body mb-4 p-1">
+                    <center>
+                        <div class="row">
+                            <div class="col">
+                                <p>Sedang Bermain</p>
+                            </div>
+                            <div class="col">
+                                <?php
+                                date_default_timezone_set('Asia/Jakarta');
+                                $hari_ini = date('Y-m-d');
+                                $jam_ini = date('H');
+                                $jam_ini = $jam_ini . ':00:00';
+                                foreach ($jam as $huha) {
+                                    if ($huha->time == $jam_ini) {
+                                        $id_time = $huha->id_jam;
+                                        break; // Keluar dari perulangan jika sudah ditemukan
+                                    }
+                                }
+
+                                foreach ($sw as $hahi) {
+                                    foreach ($data_sewa as $jem) {
+                                        if ($hahi->id_sewa == $jem->id_sewa) {
+                                            if ($hahi->tanggal == $hari_ini && $jem->id_jam == $id_time) {
+                                                echo 'Id Sewa : ' . $hahi->id_sewa . '<br>';
+                                            }
+                                        }
+                                    }
+                                }
+
+                                ?>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br><br>
     <div class="container">
         <table style="font-size: 12px;" id="myTable" class="table table-bordered">
             <thead class="thead-dark">
@@ -55,6 +99,7 @@
                                 <?php foreach ($user as $key) {
                                     if ($key->id_pelanggan == $val->id_pelanggan) {
                                         $username = $key->username;
+                                        $s_user = $key->hak_akses;
                                         echo $key->username;
                                     }
                                 } ?>
@@ -216,7 +261,7 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Nama Pembooking</label>
                                                 <input type="text" class="form-control" readonly name=""
-                                                    value="<?php echo $username; ?>">
+                                                    value="<?php echo $username . ' (' . $s_user . ')'; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Lapangan</label>

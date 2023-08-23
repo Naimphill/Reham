@@ -61,6 +61,7 @@ class Login extends CI_Controller
                 $sess_data['password'] = $sess->password;
                 $sess_data['nama_lengkap'] = $sess->nama_lengkap;
                 $sess_data['no_tlp'] = $sess->no_tlp;
+                $sess_data['status'] = $sess->hak_akses;
                 $sess_data['hak_akses'] = 'pelanggan';
                 $this->session->set_userdata($sess_data);
             }
