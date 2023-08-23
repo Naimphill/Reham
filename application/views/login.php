@@ -35,6 +35,10 @@
         <div class="flash-salah" data-flashdata="<?= $this->session->flashdata('salah'); ?>"></div>
         <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
+    <?php if ($this->session->flashdata('flash-data')): ?>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash-data'); ?>"></div>
+        <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 mx-auto">
@@ -90,6 +94,7 @@
         }
     </script>
     <script>
+
         const flashData = $('.flash-data').data('flashdata');
 
         if (flashData) {

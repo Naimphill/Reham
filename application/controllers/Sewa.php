@@ -359,8 +359,10 @@ class Sewa extends CI_Controller
         $id_pelanggan = $this->session->userdata('id_pelanggan');
         $dataubah = array('hak_akses' => 'member');
         $this->Mcrud->update('t_pelanggan', $dataubah, 'id_pelanggan', $id_pelanggan);
+        // Update session data
+        $this->session->set_userdata('status', 'member');
         $this->session->set_flashdata('flash-data', 'Menjadi Member');
-        redirect('Member');
+        redirect('sewa/member');
     }
     public function member()
     {

@@ -71,5 +71,10 @@ class Mcrud extends CI_Model
         $this->db->order_by('tgl_bayar', 'DESC');
         return $this->db->get('t_bukti')->result();
     }
+    public function get_single_data($table, $field, $value)
+    {
+        $this->db->where($field, $value);
+        return $this->db->get($table)->row();
+    }
 }
 ?>

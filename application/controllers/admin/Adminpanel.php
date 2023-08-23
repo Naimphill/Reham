@@ -339,4 +339,16 @@ class Adminpanel extends CI_Controller
         //load view
         $this->load->view('admin/cetak_sewa', $data);
     }
+    public function edit_status($id_sewa)
+    {
+        $id = $id_sewa;
+
+        $dataUpdate = array(
+            'status' => 'Sudah Main'
+        );
+        // var_dump($dataUpdate);
+        $this->Mcrud->update('t_sewa', $dataUpdate, 'id_sewa', $id);
+        $this->session->set_flashdata('flash', 'Disimpan');
+        redirect('admin/Adminpanel/sewa');
+    }
 }
